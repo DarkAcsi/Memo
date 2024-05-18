@@ -69,4 +69,7 @@ dependencies {
 
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.io.coil.kt)
+    implementation(libs.code.gson)
+    implementation(libs.serialization.json)
 }
