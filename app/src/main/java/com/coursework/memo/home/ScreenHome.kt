@@ -61,7 +61,7 @@ class ScreenHome(private val navigator: Navigator) {
             ){
                 Column(horizontalAlignment = Alignment.CenterHorizontally){
                     Text(stringResource(R.string.app_name), fontSize = 30.sp)
-                    Button({ navigator.toSize(SizeSupport("", Routes.CLASSIC)) }){
+                    Button({ navigator.toSize(SizeSupport("Animals", Routes.CLASSIC)) }){
                         Text(stringResource(R.string.classic_game))
                     }
                     Button({}){

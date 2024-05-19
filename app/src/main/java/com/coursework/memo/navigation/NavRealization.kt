@@ -3,8 +3,7 @@ package com.coursework.memo.navigation
 import androidx.navigation.NavHostController
 import com.coursework.memo.support_classes.GameSupport
 import com.coursework.memo.support_classes.SizeSupport
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
+import com.google.gson.Gson
 
 class NavRealization(private val navController: NavHostController): Navigator {
 
@@ -17,11 +16,11 @@ class NavRealization(private val navController: NavHostController): Navigator {
     }
 
     override fun toSize(support: SizeSupport) {
-        navController.navigate(Routes.SIZE + Json.encodeToString(support))
+        navController.navigate(Routes.SIZE + "/" + Gson().toJson(support))
     }
 
     override fun toGame(route: String, support: GameSupport){
-        navController.navigate(route + Json.encodeToString(support))
+        navController.navigate(route + "/" + Gson().toJson(support))
     }
 
 }
