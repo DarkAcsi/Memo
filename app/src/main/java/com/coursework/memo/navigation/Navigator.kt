@@ -1,7 +1,7 @@
 package com.coursework.memo.navigation
 
-import com.coursework.memo.support_classes.GameSupport
-import com.coursework.memo.support_classes.SizeSupport
+import com.coursework.memo.screens.support_classes.GameSupport
+import com.coursework.memo.screens.support_classes.SizeSupport
 
 
 interface Navigator {

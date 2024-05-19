@@ -1,4 +1,4 @@
-package com.coursework.memo.home
+package com.coursework.memo.screens.home
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -7,14 +7,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,14 +23,14 @@ import androidx.navigation.compose.rememberNavController
 import com.coursework.memo.R
 import com.coursework.memo.navigation.NavRealization
 import com.coursework.memo.navigation.Navigator
-import com.coursework.memo.support_classes.GameSupport
-import com.coursework.memo.support_classes.SizeSupport
+import com.coursework.memo.screens.support_classes.GameSupport
+import com.coursework.memo.screens.support_classes.SizeSupport
 
 @Preview(showSystemUi = true)
 @Composable
 fun TestSize() {
     val navigator = NavRealization(rememberNavController())
-    ScreenSize(navigator).Screen(SizeSupport("kk", "kj"))
+    ScreenSize(navigator).Screen(SizeSupport("kk", "kj", "ll"))
 }
 
 class ScreenSize(private val navigator: Navigator) {
@@ -45,10 +44,12 @@ class ScreenSize(private val navigator: Navigator) {
     private fun Size(size: SizeSupport) {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
-            topBar = { TopBarSize() },
             floatingActionButton = {
                 IconButton({ navigator.toHome() }) {
                     Icon(Icons.Filled.Home, stringResource(R.string.home))
+                }
+                IconButton({}) {
+                    Icon(Icons.Filled.Settings, stringResource(R.string.settings))
                 }
             },
             floatingActionButtonPosition = FabPosition.Start
@@ -73,7 +74,7 @@ class ScreenSize(private val navigator: Navigator) {
                                     Button({
                                         navigator.toGame(
                                             size.route,
-                                            GameSupport(c * 2 + b + 4, 2, size.packImage)
+                                            GameSupport(c * 2 + b + 4, 2, size.packImage, size.back)
                                         )
                                     }) {
                                         Text("${c * 2 + b + 4}x${c * 2 + b + 3}")
@@ -85,11 +86,5 @@ class ScreenSize(private val navigator: Navigator) {
                 }
             }
         }
-    }
-
-    @OptIn(ExperimentalMaterial3Api::class)
-    @Composable
-    private fun TopBarSize() {
-        TopAppBar(title = {})
     }
 }

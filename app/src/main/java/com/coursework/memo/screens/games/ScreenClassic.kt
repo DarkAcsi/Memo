@@ -1,4 +1,4 @@
-package com.coursework.memo.games
+package com.coursework.memo.screens.games
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
@@ -19,37 +19,43 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.rememberNavController
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.coursework.memo.R
-import com.coursework.memo.navigation.NavRealization
 import com.coursework.memo.navigation.Navigator
-import com.coursework.memo.support_classes.GameSupport
+import com.coursework.memo.screens.support_classes.GameSupport
 import java.util.Collections.shuffle
 
 @Preview(showSystemUi = true)
 @Composable
-fun TestGameClassic() {
-    val navigator = NavRealization(rememberNavController())
-    ScreenClassic(navigator).Screen(GameSupport(4, 4, "Animals"))
+fun ScreenClassic(){
+    val viewModel = hiltViewModel<ViewModelClassic>()
+
 }
 
-class ScreenClassic(private val navigator: Navigator) {
+@Composable
+fun ClassicGame(){
+
+}
+
+class ScreenClassic(private val navigator: Navigator, private val game: GameSupport) {
 
     private var boxPadding = 0
     private var modPadding = 0
     private var borderStroke = 1
-    private var viewModel: ViewModelClassic = ViewModelClassic()
+//    private lateinit var viewModel: ViewModelClassic
 
+//    @Preview(showSystemUi = true)
     @Composable
-    fun Screen(game: GameSupport) {
+    fun Screen() {
         Scaffold(
             topBar = { TopBarClassic(game.players) }
-        ){ innerPadding ->
+        ) { innerPadding ->
             val modifierPad = Modifier.padding(innerPadding)
             setPaddings(game.size)
             Game(game, modifierPad)
@@ -96,11 +102,11 @@ class ScreenClassic(private val navigator: Navigator) {
     private fun Game(game: GameSupport, modifier: Modifier) {
         val images = setImages(game.packImage, game.size)
         Column(
-                modifier = Modifier
-                    .then(modifier)
-                    .fillMaxSize()
-                    .padding(all = boxPadding.dp),
-            ) {
+            modifier = Modifier
+                .then(modifier)
+                .fillMaxSize()
+                .padding(all = boxPadding.dp),
+        ) {
             for (row in 0 until game.size) {
                 Row(
                     modifier = Modifier
@@ -154,7 +160,9 @@ class ScreenClassic(private val navigator: Navigator) {
                     color = Color.White,
                     shape = RoundedCornerShape(percent = 10)
                 )
-                .clip(RoundedCornerShape(percent = 10))
-        )
+                .clip(RoundedCornerShape(percent = 10)),
+            contentScale = ContentScale.Crop,
+
+            )
     }
 }

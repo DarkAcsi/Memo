@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -71,5 +73,15 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.io.coil.kt)
     implementation(libs.code.gson)
-    implementation(libs.serialization.json)
+
+    //Splash Api
+    implementation(libs.androidx.core.splashscreen)
+
+    // Dagger - Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.dagger.hilt.android.compiler)
+    kapt(libs.androidx.hilt.compiler)
+    implementation(libs.hilt.navigation.compose)
+
+    implementation(libs.androidx.datastore.preferences)
 }

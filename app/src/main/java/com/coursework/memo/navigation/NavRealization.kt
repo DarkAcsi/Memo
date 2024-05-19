@@ -1,8 +1,8 @@
 package com.coursework.memo.navigation
 
 import androidx.navigation.NavHostController
-import com.coursework.memo.support_classes.GameSupport
-import com.coursework.memo.support_classes.SizeSupport
+import com.coursework.memo.screens.support_classes.GameSupport
+import com.coursework.memo.screens.support_classes.SizeSupport
 import com.google.gson.Gson
 
 class NavRealization(private val navController: NavHostController): Navigator {

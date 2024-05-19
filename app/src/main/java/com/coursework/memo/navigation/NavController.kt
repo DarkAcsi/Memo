@@ -4,11 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.coursework.memo.games.ScreenClassic
-import com.coursework.memo.home.ScreenHome
-import com.coursework.memo.home.ScreenSize
-import com.coursework.memo.support_classes.GameSupport
-import com.coursework.memo.support_classes.SizeSupport
+import com.coursework.memo.screens.games.ScreenClassic
+import com.coursework.memo.screens.home.ScreenHome
+import com.coursework.memo.screens.home.ScreenSize
+import com.coursework.memo.screens.support_classes.GameSupport
+import com.coursework.memo.screens.support_classes.SizeSupport
 import com.google.gson.Gson
 
 
@@ -29,7 +29,7 @@ class NavController {
 
             composable(Routes.CLASSIC + "/{data}") { argument ->
                 val data = argument.arguments?.getString("data")
-                ScreenClassic(navigator).Screen(Gson().fromJson(data, GameSupport::class.java))
+                ScreenClassic(navigator, Gson().fromJson(data, GameSupport::class.java)).Screen()
             }
         }
     }
