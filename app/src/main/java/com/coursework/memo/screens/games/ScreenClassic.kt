@@ -24,7 +24,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.coursework.memo.R
 import com.coursework.memo.navigation.Navigator
@@ -34,7 +33,7 @@ import java.util.Collections.shuffle
 @Preview(showSystemUi = true)
 @Composable
 fun ScreenClassic(){
-    val viewModel = hiltViewModel<ViewModelClassic>()
+//    val viewModel = hiltViewModel<ViewModelClassic>()
 
 }
 

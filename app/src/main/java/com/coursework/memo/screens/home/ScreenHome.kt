@@ -20,53 +20,44 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
 import com.coursework.memo.R
-import com.coursework.memo.navigation.NavRealization
 import com.coursework.memo.navigation.Navigator
+import com.coursework.memo.navigation.NavigatorImpl
 import com.coursework.memo.navigation.Routes
-import com.coursework.memo.screens.support_classes.SizeSupport
 
 @Preview(showSystemUi = true)
 @Composable
-fun TestHome(){
-    val navigator = NavRealization(rememberNavController())
-    ScreenHome(navigator).Screen()
+fun ViewScreenHome(){
+    val navigator = NavigatorImpl(rememberNavController())
+    ScreenHome(navigator)
 }
 
-class ScreenHome(private val navigator: Navigator) {
-
-    @Composable
-    fun Screen() {
-        Home()
-    }
-
-    @Composable
-    private fun Home() {
-        Scaffold(
-            modifier = Modifier.fillMaxSize(),
-            floatingActionButton = {
-                IconButton({}) {
-                    Icon(Icons.Filled.Settings, stringResource(R.string.settings))
+@Composable
+fun ScreenHome(navigator: Navigator) {
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        floatingActionButton = {
+            IconButton({}) {
+                Icon(Icons.Filled.Settings, stringResource(R.string.settings))
+            }
+        },
+        floatingActionButtonPosition = FabPosition.EndOverlay,
+    ) { innerPadding ->
+        Box(
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(stringResource(R.string.app_name), fontSize = 30.sp)
+                Button({ navigator.toSize(Routes.ClassicGame.route) }) {
+                    Text(stringResource(R.string.classic_game))
                 }
-            },
-            floatingActionButtonPosition = FabPosition.Start,
-        ) { innerPadding ->
-            Box(
-                modifier = Modifier
-                    .padding(innerPadding)
-                    .fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ){
-                Column(horizontalAlignment = Alignment.CenterHorizontally){
-                    Text(stringResource(R.string.app_name), fontSize = 30.sp)
-                    Button({ navigator.toSize(SizeSupport("Animals", "1", Routes.CLASSIC)) }){
-                        Text(stringResource(R.string.classic_game))
-                    }
-                    Button({}){
-                        Text(stringResource(R.string.find_game))
-                    }
-                    Button({}){
-                        Text(stringResource(R.string.house_game))
-                    }
+                Button({}) {
+                    Text(stringResource(R.string.find_game))
+                }
+                Button({}) {
+                    Text(stringResource(R.string.house_game))
                 }
             }
         }

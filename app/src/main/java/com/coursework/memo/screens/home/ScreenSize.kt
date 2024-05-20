@@ -15,70 +15,69 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.coursework.memo.R
-import com.coursework.memo.navigation.NavRealization
 import com.coursework.memo.navigation.Navigator
-import com.coursework.memo.screens.support_classes.GameSupport
-import com.coursework.memo.screens.support_classes.SizeSupport
+import com.coursework.memo.navigation.NavigatorImpl
+import com.coursework.memo.navigation.Routes
 
 @Preview(showSystemUi = true)
 @Composable
 fun TestSize() {
-    val navigator = NavRealization(rememberNavController())
-    ScreenSize(navigator).Screen(SizeSupport("kk", "kj", "ll"))
+    val navigator = NavigatorImpl(rememberNavController())
+    ScreenSize(navigator, Routes.ClassicGame.route)
 }
 
-class ScreenSize(private val navigator: Navigator) {
+@Composable
+fun ScreenSize(
+    navigator: Navigator,
+    routeGame: String,
+){
+    Size(navigator, routeGame)
+}
 
-    @Composable
-    fun Screen(support: SizeSupport) {
-        Size(support)
-    }
-
-    @Composable
-    private fun Size(size: SizeSupport) {
-        Scaffold(
-            modifier = Modifier.fillMaxSize(),
-            floatingActionButton = {
+@Composable
+private fun Size(navigator: Navigator, routeGame: String) {
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        floatingActionButton = {
+            Row {
                 IconButton({ navigator.toHome() }) {
                     Icon(Icons.Filled.Home, stringResource(R.string.home))
                 }
                 IconButton({}) {
                     Icon(Icons.Filled.Settings, stringResource(R.string.settings))
                 }
-            },
-            floatingActionButtonPosition = FabPosition.Start
+            }
+        },
+        floatingActionButtonPosition = FabPosition.EndOverlay
 
-        ) { innerPadding ->
-            Box(
-                modifier = Modifier
-                    .padding(innerPadding)
-                    .fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Row() {
-                        Button({}) {
-                            Text("2 игрока")
-                        }
+    ) { innerPadding ->
+        Box(
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Row {
+                    val players = remember { mutableIntStateOf(0) }
+                    Button({players.intValue = (players.intValue + 1) % 3}) {
+                        Text("${players.intValue + 2} игрока")
                     }
-                    Column {
-                        for (c in 0..2) {
-                            Row {
-                                for (b in 0..1) {
-                                    Button({
-                                        navigator.toGame(
-                                            size.route,
-                                            GameSupport(c * 2 + b + 4, 2, size.packImage, size.back)
-                                        )
-                                    }) {
-                                        Text("${c * 2 + b + 4}x${c * 2 + b + 3}")
-                                    }
+                }
+                Column {
+                    for (c in 0..2) {
+                        Row {
+                            for (b in 0..1) {
+                                Button({}) {
+                                    Text("${c * 2 + b + 4}x${c * 2 + b + 3}")
                                 }
                             }
                         }
