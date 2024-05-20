@@ -5,8 +5,7 @@ sealed class Routes(
 ) {
     data object Home: Routes(route = "homeScreen")
     data object Size: Routes(route = "sizeScreen")
-    data object ClassicGame: Routes(route = "classicGameScreen")
-    data object FindGame: Routes(route = "findGameScreen")
-    data object HouseGame: Routes(route = "houseGameScreen")
+    data object Game: Routes(route = "gameScreen")
     data object Settings: Routes(route = "settingsScreen")
+    data object Pause: Routes(route = "pauseScreen")
 }

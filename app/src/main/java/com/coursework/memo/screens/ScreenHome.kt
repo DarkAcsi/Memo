@@ -1,4 +1,4 @@
-package com.coursework.memo.screens.home
+package com.coursework.memo.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,13 +20,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
 import com.coursework.memo.R
+import com.coursework.memo.navigation.Games
 import com.coursework.memo.navigation.Navigator
 import com.coursework.memo.navigation.NavigatorImpl
-import com.coursework.memo.navigation.Routes
 
 @Preview(showSystemUi = true)
 @Composable
-fun ViewScreenHome(){
+fun ViewScreenHome() {
     val navigator = NavigatorImpl(rememberNavController())
     ScreenHome(navigator)
 }
@@ -36,7 +36,7 @@ fun ScreenHome(navigator: Navigator) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         floatingActionButton = {
-            IconButton({}) {
+            IconButton({ navigator.toSettings() }) {
                 Icon(Icons.Filled.Settings, stringResource(R.string.settings))
             }
         },
@@ -50,13 +50,13 @@ fun ScreenHome(navigator: Navigator) {
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(stringResource(R.string.app_name), fontSize = 30.sp)
-                Button({ navigator.toSize(Routes.ClassicGame.route) }) {
+                Button({ navigator.toSize(Games.Classic.kind) }) {
                     Text(stringResource(R.string.classic_game))
                 }
-                Button({}) {
+                Button({ navigator.toSize(Games.Find.kind) }) {
                     Text(stringResource(R.string.find_game))
                 }
-                Button({}) {
+                Button({ navigator.toSize(Games.House.kind) }) {
                     Text(stringResource(R.string.house_game))
                 }
             }

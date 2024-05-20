@@ -13,4 +13,9 @@
     <string name="back">Назад</string>
     <string name="settings">Настройки</string>
     <string name="players">игрока</string>
+    <string name="player">игрок</string>
+    <string name="blue">Синий</string>
+    <string name="red">Красный</string>
+    <string name="yellow">Желтый</string>
+    <string name="green">Зеленый</string>
 </resources>

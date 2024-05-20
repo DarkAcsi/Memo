@@ -1,6 +1,6 @@
 package com.coursework.memo.navigation
 
-import com.coursework.memo.screens.support_classes.GameSupport
+import com.coursework.memo.screens.games.support.GameSettings
 
 
 interface Navigator {
@@ -9,10 +9,14 @@ interface Navigator {
 
     fun toHome()
 
-    fun toSize(routeGame: String)
+    fun toSize(kindGame: String)
 
-    fun toGame(route: String, support: GameSupport)
+    fun toGame(gameSettings: GameSettings)
 
     fun toSettings()
+
+    fun toPause(gameSettings: GameSettings)
+
+    fun retryGame(gameSettings: GameSettings)
 
 }

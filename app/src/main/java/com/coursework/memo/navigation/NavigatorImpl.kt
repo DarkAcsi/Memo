@@ -1,7 +1,7 @@
 package com.coursework.memo.navigation
 
 import androidx.navigation.NavHostController
-import com.coursework.memo.screens.support_classes.GameSupport
+import com.coursework.memo.screens.games.support.GameSettings
 import com.google.gson.Gson
 
 class NavigatorImpl(private val navController: NavHostController): Navigator {
@@ -14,16 +14,25 @@ class NavigatorImpl(private val navController: NavHostController): Navigator {
         navController.popBackStack(Routes.Home.route, inclusive = false)
     }
 
-    override fun toSize(routeGame: String) {
-        navController.navigate(Routes.Size.route + "/" + routeGame)
+    override fun toSize(kindGame: String) {
+        navController.navigate(Routes.Size.route + "/" + kindGame)
     }
 
-    override fun toGame(route: String, support: GameSupport){
-        navController.navigate(route + "/" + Gson().toJson(support))
+    override fun toGame(gameSettings: GameSettings){
+        navController.navigate(gameSettings.kindGame + "/" + Gson().toJson(gameSettings))
     }
 
     override fun toSettings() {
         navController.navigate(Routes.Settings.route)
+    }
+
+    override fun toPause(gameSettings: GameSettings) {
+        navController.navigate(Routes.Pause.route + "/" + Gson().toJson(gameSettings))
+    }
+
+    override fun retryGame(gameSettings: GameSettings) {
+        navController.getBackStackEntry(Routes.Size.route)
+        toGame(gameSettings)
     }
 
 }

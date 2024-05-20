@@ -13,5 +13,11 @@
     <string name="play">Play</string>
     <string name="retry">Retry</string>
 
+    <string name="player">player</string>
     <string name="players">players</string>
+
+    <string name="blue">Blue</string>
+    <string name="red">Red</string>
+    <string name="yellow">Yellow</string>
+    <string name="green">Green</string>
 </resources>
