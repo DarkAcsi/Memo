@@ -20,7 +20,7 @@ import androidx.navigation.compose.rememberNavController
 import com.coursework.memo.R
 import com.coursework.memo.navigation.Navigator
 import com.coursework.memo.navigation.NavigatorImpl
-import com.coursework.memo.screens.games.base.GameState
+import com.coursework.memo.screens.games.base.states.TopBarState
 import com.coursework.memo.screens.games.support.GameSettings
 
 @Preview(showBackground = true)
@@ -29,7 +29,7 @@ fun ViewGameTopBar() {
     val navigator = NavigatorImpl(rememberNavController())
     GameTopBar(
         navigator = navigator,
-        state = GameState(2),
+        state = TopBarState(2),
         GameSettings("", 2, 3, 4)
     )
 }
@@ -38,7 +38,7 @@ fun ViewGameTopBar() {
 @Composable
 fun GameTopBar(
     navigator: Navigator,
-    state: GameState,
+    state: TopBarState,
     gameSettings: GameSettings,
 ) {
     TopAppBar(

@@ -1,5 +1,7 @@
 package com.coursework.memo.screens.games.support
 
+import androidx.compose.ui.unit.dp
+
 data class GameSettings(
     val kindGame: String,
     val players: Int,
@@ -10,27 +12,27 @@ data class GameSettings(
     fun getGamePaddings(): GamePaddings {
         return when (rows) {
             4 -> GamePaddings(
-                boxPadding = 0,
-                modPadding = 8,
-                borderStroke = 3
+                boxPadding = 0.dp,
+                modPadding = 8.dp,
+                borderStroke = 3.dp
             )
 
             5, 6 -> GamePaddings(
-                boxPadding = 2,
-                modPadding = 6,
-                borderStroke = 2
+                boxPadding = 2.dp,
+                modPadding = 6.dp,
+                borderStroke = 2.dp
             )
 
             7, 8 -> GamePaddings(
-                boxPadding = 4,
-                modPadding = 4,
-                borderStroke = 2
+                boxPadding = 4.dp,
+                modPadding = 4.dp,
+                borderStroke = 2.dp
             )
 
             else -> GamePaddings(
-                boxPadding = 6,
-                modPadding = 2,
-                borderStroke = 1
+                boxPadding = 6.dp,
+                modPadding = 2.dp,
+                borderStroke = 1.dp
             )
         }
     }

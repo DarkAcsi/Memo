@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface LocalSettings {
 
-    suspend fun saveSettings(localSettings: LocalSettingsData)
+    suspend fun saveSettings(localSettingsData: LocalSettingsData)
 
     fun readSettings(): Flow<LocalSettingsData>
 
