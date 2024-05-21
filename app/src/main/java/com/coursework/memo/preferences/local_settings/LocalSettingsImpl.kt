@@ -20,7 +20,7 @@ class LocalSettingsImpl @Inject constructor(
     override suspend fun saveSettings(localSettingsData: LocalSettingsData) {
         application.dataStore.edit { settings ->
             settings[PreferenceKeys.IMAGE_PACK] = localSettingsData.imagePack
-            settings[PreferenceKeys.BACK_CARD] = localSettingsData.backCard
+            settings[PreferenceKeys.BACK_CARD] = localSettingsData.backSide
         }
     }
 

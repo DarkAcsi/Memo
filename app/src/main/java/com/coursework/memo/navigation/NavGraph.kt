@@ -5,7 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.coursework.memo.screens.ScreenHome
-import com.coursework.memo.screens.games.classic.ScreenGame
+import com.coursework.memo.screens.games.componens.ScreenGame
 import com.coursework.memo.screens.games.support.GameSettings
 import com.coursework.memo.screens.size.ScreenSize
 import com.google.gson.Gson

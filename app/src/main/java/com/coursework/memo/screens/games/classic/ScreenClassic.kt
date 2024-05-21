@@ -1,76 +1,63 @@
 package com.coursework.memo.screens.games.classic
 
+import android.util.Log
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.coursework.memo.navigation.Navigator
 import com.coursework.memo.screens.games.base.GameEvent
-import com.coursework.memo.screens.games.base.states.TopBarState
-import com.coursework.memo.screens.games.componens.GameTopBar
+import com.coursework.memo.screens.games.base.states.CardState
+import com.coursework.memo.screens.games.componens.GameCard
 import com.coursework.memo.screens.games.support.GameSettings
-import java.util.Collections.shuffle
 
-
-@Preview(showSystemUi = true)
+@Preview(showBackground = true, backgroundColor = 0xFF5CFC0C, showSystemUi = true)
 @Composable
 fun ViewScreenClassic() {
-
+    GameClassic(
+        modifier = Modifier,
+        gameSettings = GameSettings("", 2, 4, 3),
+        backSide = "",
+        images = listOf(),
+        event = {}
+    )
 }
 
 @Composable
-fun ScreenGame(navigator: Navigator, gameSettings: GameSettings) {
-    val viewModel: ViewModelClassic = hiltViewModel()
-    Scaffold(
-        topBar = { GameTopBar(navigator, viewModel.stateTopBar.value, gameSettings) }
-    ) { innerPadding ->
-        val modifierPad = Modifier.padding(innerPadding)
-        GameClassic(navigator, viewModel::onEvent, viewModel.stateTopBar.value, gameSettings, modifierPad)
-    }
-}
-
-@Composable
-private fun setImages(packImage: String, sizeDef: Int): List<String> {
-    val images = LocalContext.current.assets.list("images/$packImage")?.toList()
-    shuffle(images!!)
-    val size = sizeDef * (sizeDef - 1) / 2
-    val images2 = images.slice(1..size) + images.slice(1..size)
-    shuffle(images2)
-    return images2
-}
-
-@Composable
-private fun GameClassic(
-    navigator: Navigator,
-    event: (GameEvent) -> Unit,
-    state: TopBarState,
+fun GameClassic(
+    modifier: Modifier,
     gameSettings: GameSettings,
-    modifier: Modifier
+    backSide: String,
+    images: List<String>,
+    event: (GameEvent) -> Unit,
 ) {
-//    val images = setImages(game.packImage, game.size)
-//    Column(
-//        modifier = Modifier
-//            .then(modifier)
-//            .fillMaxSize()
-//            .padding(all = boxPadding.dp),
-//    ) {
-//        for (row in 0 until game.size) {
-//            Row(
-//                modifier = Modifier
-//                    .weight(1f)
-//                    .padding(vertical = (modPadding * 1.5).dp)
-//            ) {
-//                for (column in 0 until game.size - 1) {
-//                    Card(
-//                        game.packImage,
-//                        images[column * game.size + row],
-//                        Modifier.weight(1f)
-//                    )
-//                }
-//            }
-//        }
-//    }
+    Log.d("Deb", "GameClassic")
+    val gamePaddings = gameSettings.getGamePaddings()
+    Column(
+        modifier = Modifier
+            .then(modifier)
+            .fillMaxSize()
+            .padding(gamePaddings.boxPadding),
+    ) {
+        var count = 0
+        for (row in 0 until gameSettings.rows) {
+            Row(
+                modifier = Modifier
+                    .weight(1f)
+            ) {
+                for (column in 0 until gameSettings.columns) {
+                    Log.d("Deb", "card $count")
+                    GameCard(
+                        modifier = Modifier.weight(1f),
+                        paddings = gamePaddings,
+                        state = CardState(backSide, images.getOrElse(count){""}, false),
+                        event = event
+                    )
+                    count += 1
+                }
+            }
+        }
+    }
 }

@@ -69,7 +69,7 @@ fun ScreenSize(navigator: Navigator, kindGame: String) {
                     navigator.toGame(
                         GameSettings(
                             kindGame = kindGame,
-                            players = players.intValue,
+                            players = players.intValue + 2,
                             rows = rows,
                             columns = columns
                         )

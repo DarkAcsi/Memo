@@ -19,7 +19,7 @@ class NavigatorImpl(private val navController: NavHostController): Navigator {
     }
 
     override fun toGame(gameSettings: GameSettings){
-        navController.navigate(gameSettings.kindGame + "/" + Gson().toJson(gameSettings))
+        navController.navigate(Routes.Game.route + "/" + Gson().toJson(gameSettings))
     }
 
     override fun toSettings() {
