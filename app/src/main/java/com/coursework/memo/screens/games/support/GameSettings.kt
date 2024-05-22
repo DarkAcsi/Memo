@@ -9,6 +9,8 @@ data class GameSettings(
     val players: Int,
     val rows: Int,
     val columns: Int,
+    val backSide: String = "",
+    val packImage: String = "",
 ) {
 
     fun getGamePaddings(): GamePaddings {

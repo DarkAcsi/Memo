@@ -11,18 +11,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.CachePolicy
 import coil.request.ImageRequest
-import com.coursework.memo.R
 import com.coursework.memo.screens.games.base.GameEvent
 import com.coursework.memo.screens.games.base.states.CardState
 import com.coursework.memo.screens.games.support.GamePaddings
@@ -35,6 +31,7 @@ fun ViewGameCard() {
         modifier = Modifier,
         paddings = GameSettings("", 2, 6, 5).getGamePaddings(),
         state = CardState("", "", false),
+        backSide = "",
         index = 2,
         event = {}
     )
@@ -44,13 +41,15 @@ fun ViewGameCard() {
 fun GameCard(
     modifier: Modifier,
     paddings: GamePaddings,
-    state: CardState,
+    state: CardState?,
+    backSide: String,
     index: Int,
     event: (GameEvent) -> Unit,
 ) {
-    val image = if (state.open) state.faceSide else state.backSide
+    val image = if (state != null && state.open)
+        state.faceSide ?: backSide else backSide
     Button(
-        { if (!state.open) event(GameEvent.EventClickCard(index)) },
+        { if (state != null && !state.open) event(GameEvent.EventClickCard(index)) },
         modifier = Modifier
             .then(modifier)
             .padding(horizontal = paddings.modPadding, vertical = paddings.modPadding),
@@ -79,8 +78,8 @@ fun GameCard(
                     shape = RoundedCornerShape(percent = 10)
                 )
                 .clip(RoundedCornerShape(percent = 10)),
-            contentScale = ContentScale.Crop,
-            placeholder = BitmapPainter(ImageBitmap.imageResource(R.drawable.test_face_side))
+            contentScale = ContentScale.FillBounds,
+//            placeholder = BitmapPainter(ImageBitmap.imageResource(R.drawable.test_face_side))
         )
     }
 }

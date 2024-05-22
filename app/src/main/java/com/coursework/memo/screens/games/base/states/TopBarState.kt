@@ -12,7 +12,7 @@ data class TopBarState(
             newScores[orderPlayers] += 1
         return TopBarState(
             players = players,
-            orderPlayers = if (win) orderPlayers else (orderPlayers + 1) % players,
+            orderPlayers = (if (win) orderPlayers else (orderPlayers + 1)) % players,
             scores = newScores.toList()
         )
     }

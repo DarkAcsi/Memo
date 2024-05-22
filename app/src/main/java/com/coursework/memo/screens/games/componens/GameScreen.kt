@@ -2,10 +2,12 @@ package com.coursework.memo.screens.games.componens
 
 import android.util.Log
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.coursework.memo.navigation.Games
 import com.coursework.memo.navigation.Navigator
+import com.coursework.memo.screens.games.base.GameViewModel
 import com.coursework.memo.screens.games.classic.GameClassic
 import com.coursework.memo.screens.games.classic.ViewModelClassic
 import com.coursework.memo.screens.games.support.GameSettings
@@ -16,16 +18,26 @@ fun ScreenGame(
     gameSettings: GameSettings
 ) {
     Log.d("Deb", "ScreenGame")
+    lateinit var viewModel: GameViewModel
+    when (gameSettings.kindGame) {
+        Games.Classic.kind -> viewModel = hiltViewModel<ViewModelClassic>()
+        Games.Find.kind -> viewModel = hiltViewModel<ViewModelClassic>()
+        Games.House.kind -> viewModel = hiltViewModel<ViewModelClassic>()
+    }
+    val context = LocalContext.current
+    LaunchedEffect(key1 = viewModel.stateGame.value.loadedData) {
+        viewModel.initStateTopBar(gameSettings.players)
+        viewModel.initCardStates(gameSettings.rows, gameSettings.columns, context)
+        Log.d("Deb", "in LaunchedEffect")
+    }
+
     when (gameSettings.kindGame) {
         Games.Classic.kind -> {
-            val viewModel: ViewModelClassic = hiltViewModel()
-            val stateTopBar = viewModel.getStateTopBar(gameSettings.players)
-            viewModel.initCardStates(gameSettings.rows, gameSettings.columns, LocalContext.current)
             GameClassic(
                 navigator = navigator,
                 gameSettings = gameSettings,
-                cardStates = viewModel.listCardStates,
-                stateTopBar = stateTopBar,
+                cardStates = viewModel.listCards,
+                stateTopBar = viewModel.stateTopBar.value,
                 event = viewModel::onEvent
             )
         }
