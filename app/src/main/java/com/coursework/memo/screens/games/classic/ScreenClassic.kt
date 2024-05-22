@@ -1,12 +1,12 @@
 package com.coursework.memo.screens.games.classic
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
@@ -30,7 +30,7 @@ fun ViewScreenClassic() {
     GameClassic(
         navigator = NavigatorImpl(rememberNavController()),
         gameSettings = GameSettings(Games.Classic.kind, 3, 8, 7),
-        cardStates = listCard.toList(),
+        cardStates = listOf(),
         stateTopBar = TopBarState(3),
         event = {}
     )
@@ -40,14 +40,13 @@ fun ViewScreenClassic() {
 fun GameClassic(
     navigator: Navigator,
     gameSettings: GameSettings,
-    cardStates: List<CardState>,
+    cardStates: List<State<CardState>>,
     stateTopBar: TopBarState,
     event: (GameEvent) -> Unit,
 ) {
     Scaffold(
         topBar = { GameTopBar(navigator, stateTopBar, gameSettings) },
     ) { innerPadding ->
-        Log.d("Deb", "GameClassic")
         val modifierPad = Modifier.padding(innerPadding)
         val gamePaddings = gameSettings.getGamePaddings()
         Column(
@@ -66,7 +65,8 @@ fun GameClassic(
                         GameCard(
                             modifier = Modifier.weight(1f),
                             paddings = gamePaddings,
-                            state = cardStates[count],
+                            state = cardStates.getOrNull(count)?.value,
+                            backSide = gameSettings.backSide,
                             index = count,
                             event = event
                         )

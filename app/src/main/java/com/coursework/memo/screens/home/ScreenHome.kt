@@ -1,4 +1,4 @@
-package com.coursework.memo.screens
+package com.coursework.memo.screens.home
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -7,11 +7,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
-import androidx.compose.material3.FabPosition
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,16 +32,18 @@ fun ViewScreenHome() {
     ScreenHome(navigator)
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScreenHome(navigator: Navigator) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        floatingActionButton = {
-            IconButton({ navigator.toSettings() }) {
-                Icon(Icons.Filled.Settings, stringResource(R.string.settings))
-            }
-        },
-        floatingActionButtonPosition = FabPosition.EndOverlay,
+        topBar = {
+            TopAppBar(title = {}, actions = {
+                IconButton({ navigator.toSettings() }) {
+                    Icon(Icons.Filled.Settings, stringResource(R.string.settings))
+                }
+            })
+        }
     ) { innerPadding ->
         Box(
             modifier = Modifier

@@ -84,4 +84,8 @@ dependencies {
     implementation(libs.hilt.navigation.compose)
 
     implementation(libs.androidx.datastore.preferences)
+
+    // Accompanist
+    implementation(libs.accompanist.pager)
+    implementation(libs.accompanist.pager.indicators)
 }

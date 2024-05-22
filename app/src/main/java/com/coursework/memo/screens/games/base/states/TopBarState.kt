@@ -6,7 +6,7 @@ data class TopBarState(
     val scores: List<Int> = listOf(0, 0, 0, 0),
 ) {
 
-    fun nextStep(win: Boolean) : TopBarState {
+    fun nextStep(win: Boolean): TopBarState {
         val newScores = scores.toMutableList()
         if (win)
             newScores[orderPlayers] += 1

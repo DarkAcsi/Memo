@@ -18,4 +18,5 @@
     <string name="red">Красный</string>
     <string name="yellow">Желтый</string>
     <string name="green">Зеленый</string>
+    <string name="close">Закрыть</string>
 </resources>

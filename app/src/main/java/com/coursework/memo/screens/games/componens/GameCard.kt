@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -53,7 +52,7 @@ fun GameCard(
         modifier = Modifier
             .then(modifier)
             .padding(horizontal = paddings.modPadding, vertical = paddings.modPadding),
-        shape = RectangleShape,
+        shape = RoundedCornerShape(percent = 15),
         colors = ButtonColors(
             Color.Transparent,
             Color.Transparent,
@@ -75,9 +74,9 @@ fun GameCard(
                 .border(
                     width = paddings.borderStroke,
                     color = Color.White,
-                    shape = RoundedCornerShape(percent = 10)
+                    shape = RoundedCornerShape(percent = 15)
                 )
-                .clip(RoundedCornerShape(percent = 10)),
+                .clip(RoundedCornerShape(percent = 15)),
             contentScale = ContentScale.FillBounds,
 //            placeholder = BitmapPainter(ImageBitmap.imageResource(R.drawable.test_face_side))
         )

@@ -1,7 +1,6 @@
 package com.coursework.memo.screens.games.classic
 
 import android.content.Context
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -43,9 +42,7 @@ class ViewModelClassic @Inject constructor(
             _localSettingsData.value = data
             _localSettingsData.value = LocalSettingsData("1.jpg", "Animals")
             stateGame.value = stateGame.value.copy(loadedData = true)
-            Log.d("Deb", "initLocalSettingsData")
         }.launchIn(viewModelScope)
-        Log.d("Deb", "init viewModel")
     }
 
     override fun initStateTopBar(players: Int) {
@@ -55,7 +52,6 @@ class ViewModelClassic @Inject constructor(
     override fun initCardStates(rows: Int, columns: Int, context: Context) {
         if (!stateGame.value.loadedData) return
         viewModelScope.launch {
-            Log.d("Deb", "initCardStates start")
             val images =
                 context.assets.list("images/${localSettingsData.value.imagePack}")?.toList()
             shuffle(images!!)
@@ -72,7 +68,6 @@ class ViewModelClassic @Inject constructor(
                     )
                 )
             })
-            Log.d("Deb", "initCardStates")
         }
     }
 

@@ -31,18 +31,18 @@ import com.coursework.memo.navigation.Navigator
 import com.coursework.memo.navigation.NavigatorImpl
 import com.coursework.memo.screens.games.base.states.TopBarState
 import com.coursework.memo.screens.games.support.GameSettings
-import com.coursework.memo.ui.theme.PlayerBlue
-import com.coursework.memo.ui.theme.PlayerGreen
-import com.coursework.memo.ui.theme.PlayerRed
-import com.coursework.memo.ui.theme.PlayerYellow
+import com.coursework.memo.ui.theme.colorsBorder
+import com.coursework.memo.ui.theme.colorsBorderWait
+import com.coursework.memo.ui.theme.colorsPlayers
+import com.coursework.memo.ui.theme.colorsPlayersWait
 
-@Preview(backgroundColor = 0xFF03ffff, showBackground = true)
+@Preview(backgroundColor = 0xFFFFFFFF, showBackground = true)
 @Composable
 fun ViewGameTopBar() {
     val navigator = NavigatorImpl(rememberNavController())
     GameTopBar(
         navigator = navigator,
-        state = TopBarState(4),
+        state = TopBarState(4, 2),
         GameSettings("", 4, 3, 4)
     )
 }
@@ -61,7 +61,7 @@ fun GameTopBar(
                     Player(
                         order = i,
                         score = state.scores[i],
-                        leading = i == state.orderPlayers,
+                        wait = i != state.orderPlayers,
                         modifier = Modifier.weight(1f)
                     )
                 }
@@ -82,17 +82,21 @@ fun GameTopBar(
     )
 }
 
-
-val colors = listOf(PlayerBlue, PlayerRed, PlayerYellow, PlayerGreen)
-
 @Composable
-fun Player(order: Int, score: Int, leading: Boolean, modifier: Modifier) {
+fun Player(order: Int, score: Int, wait: Boolean, modifier: Modifier) {
     Box(modifier = Modifier.then(modifier)) {
         Row(
             Modifier
                 .fillMaxWidth(0.95f)
-                .border(2.dp, Color.Black, RoundedCornerShape(percent = 10))
-                .background(colors[order], RoundedCornerShape(percent = 10))
+                .border(
+                    4.dp,
+                    if (wait) colorsBorderWait[order] else colorsBorder[order],
+                    RoundedCornerShape(percent = 30)
+                )
+                .background(
+                    if (wait) colorsPlayersWait[order] else colorsPlayers[order],
+                    RoundedCornerShape(percent = 30)
+                )
                 .padding(4.dp),
             horizontalArrangement = Arrangement.Center
         ) {

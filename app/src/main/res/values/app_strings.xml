@@ -12,6 +12,7 @@
     <string name="pause">Pause</string>
     <string name="play">Play</string>
     <string name="retry">Retry</string>
+    <string name="close">Close</string>
 
     <string name="player">player</string>
     <string name="players">players</string>

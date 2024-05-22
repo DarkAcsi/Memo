@@ -1,6 +1,5 @@
 package com.coursework.memo.screens.games.componens
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
@@ -17,7 +16,6 @@ fun ScreenGame(
     navigator: Navigator,
     gameSettings: GameSettings
 ) {
-    Log.d("Deb", "ScreenGame")
     lateinit var viewModel: GameViewModel
     when (gameSettings.kindGame) {
         Games.Classic.kind -> viewModel = hiltViewModel<ViewModelClassic>()
@@ -28,7 +26,6 @@ fun ScreenGame(
     LaunchedEffect(key1 = viewModel.stateGame.value.loadedData) {
         viewModel.initStateTopBar(gameSettings.players)
         viewModel.initCardStates(gameSettings.rows, gameSettings.columns, context)
-        Log.d("Deb", "in LaunchedEffect")
     }
 
     when (gameSettings.kindGame) {

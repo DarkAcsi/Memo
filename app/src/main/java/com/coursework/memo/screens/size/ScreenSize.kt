@@ -6,14 +6,15 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
-import androidx.compose.material3.FabPosition
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -35,21 +36,26 @@ fun TestSize() {
     ScreenSize(navigator, Games.Classic.kind)
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScreenSize(navigator: Navigator, kindGame: String) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        floatingActionButton = {
-            Row {
-                IconButton({ navigator.toHome() }) {
-                    Icon(Icons.Filled.Home, stringResource(R.string.home))
+        topBar = {
+            TopAppBar(
+                title = {},
+                navigationIcon = {
+                    IconButton({ navigator.toHome() }) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.back))
+                    }
+                },
+                actions = {
+                    IconButton({ navigator.toSettings() }) {
+                        Icon(Icons.Filled.Settings, stringResource(R.string.settings))
+                    }
                 }
-                IconButton({ navigator.toSettings() }) {
-                    Icon(Icons.Filled.Settings, stringResource(R.string.settings))
-                }
-            }
-        },
-        floatingActionButtonPosition = FabPosition.EndOverlay
+            )
+        }
 
     ) { innerPadding ->
         Box(
