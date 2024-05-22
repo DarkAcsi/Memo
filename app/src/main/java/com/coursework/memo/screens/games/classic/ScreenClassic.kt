@@ -5,57 +5,73 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import com.coursework.memo.navigation.Games
+import com.coursework.memo.navigation.Navigator
+import com.coursework.memo.navigation.NavigatorImpl
 import com.coursework.memo.screens.games.base.GameEvent
 import com.coursework.memo.screens.games.base.states.CardState
+import com.coursework.memo.screens.games.base.states.TopBarState
 import com.coursework.memo.screens.games.componens.GameCard
+import com.coursework.memo.screens.games.componens.GameTopBar
 import com.coursework.memo.screens.games.support.GameSettings
 
-@Preview(showBackground = true, backgroundColor = 0xFF5CFC0C, showSystemUi = true)
+
+@Preview(showSystemUi = true)
 @Composable
 fun ViewScreenClassic() {
+    val listCard = mutableListOf<CardState>()
+    for (i in 0..100)
+        listCard.add(CardState("", "", false))
     GameClassic(
-        modifier = Modifier,
-        gameSettings = GameSettings("", 2, 4, 3),
-        backSide = "",
-        images = listOf(),
+        navigator = NavigatorImpl(rememberNavController()),
+        gameSettings = GameSettings(Games.Classic.kind, 3, 8, 7),
+        cardStates = listCard.toList(),
+        stateTopBar = TopBarState(3),
         event = {}
     )
 }
 
 @Composable
 fun GameClassic(
-    modifier: Modifier,
+    navigator: Navigator,
     gameSettings: GameSettings,
-    backSide: String,
-    images: List<String>,
+    cardStates: List<CardState>,
+    stateTopBar: TopBarState,
     event: (GameEvent) -> Unit,
 ) {
-    Log.d("Deb", "GameClassic")
-    val gamePaddings = gameSettings.getGamePaddings()
-    Column(
-        modifier = Modifier
-            .then(modifier)
-            .fillMaxSize()
-            .padding(gamePaddings.boxPadding),
-    ) {
-        var count = 0
-        for (row in 0 until gameSettings.rows) {
-            Row(
-                modifier = Modifier
-                    .weight(1f)
-            ) {
-                for (column in 0 until gameSettings.columns) {
-                    Log.d("Deb", "card $count")
-                    GameCard(
-                        modifier = Modifier.weight(1f),
-                        paddings = gamePaddings,
-                        state = CardState(backSide, images.getOrElse(count){""}, false),
-                        event = event
-                    )
-                    count += 1
+    Scaffold(
+        topBar = { GameTopBar(navigator, stateTopBar, gameSettings) },
+    ) { innerPadding ->
+        Log.d("Deb", "GameClassic")
+        val modifierPad = Modifier.padding(innerPadding)
+        val gamePaddings = gameSettings.getGamePaddings()
+        Column(
+            modifier = Modifier
+                .then(modifierPad)
+                .fillMaxSize()
+                .padding(gamePaddings.boxPadding),
+        ) {
+            var count = 0
+            for (row in 0 until gameSettings.rows) {
+                Row(
+                    modifier = Modifier
+                        .weight(1f)
+                ) {
+                    for (column in 0 until gameSettings.columns) {
+                        GameCard(
+                            modifier = Modifier.weight(1f),
+                            paddings = gamePaddings,
+                            state = cardStates[count],
+                            index = count,
+                            event = event
+                        )
+                        count += 1
+                    }
                 }
             }
         }

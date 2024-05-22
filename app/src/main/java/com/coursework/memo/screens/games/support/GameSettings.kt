@@ -1,7 +1,9 @@
 package com.coursework.memo.screens.games.support
 
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.unit.dp
 
+@Stable
 data class GameSettings(
     val kindGame: String,
     val players: Int,

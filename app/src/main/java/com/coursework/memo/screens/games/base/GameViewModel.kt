@@ -14,6 +14,6 @@ abstract class GameViewModel : ViewModel() {
 
     abstract fun onEvent(event: GameEvent)
 
-    abstract fun getImages(rows: Int, columns: Int, context: Context): List<String>
+    abstract fun initCardStates(rows: Int, columns: Int, context: Context)
 
 }

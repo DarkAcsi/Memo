@@ -1,9 +1,11 @@
 package com.coursework.memo.navigation
 
+import androidx.compose.runtime.Stable
 import androidx.navigation.NavHostController
 import com.coursework.memo.screens.games.support.GameSettings
 import com.google.gson.Gson
 
+@Stable
 class NavigatorImpl(private val navController: NavHostController): Navigator {
 
     override fun back(){

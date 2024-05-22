@@ -76,7 +76,7 @@ fun ScreenSize(navigator: Navigator, kindGame: String) {
                     )
                 }
                 when (kindGame) {
-                    Games.Classic.kind -> SizeClassic(::navigate, players.intValue)
+                    Games.Classic.kind -> SizeClassic(::navigate, players.intValue + 2)
                 }
             }
         }
