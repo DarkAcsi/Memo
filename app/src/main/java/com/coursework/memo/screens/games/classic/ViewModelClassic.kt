@@ -5,6 +5,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
+import com.coursework.memo.main.grobal_variables.Constants
 import com.coursework.memo.preferences.local_settings.LocalSettingsData
 import com.coursework.memo.preferences.usecases.ReadSettings
 import com.coursework.memo.screens.games.base.GameEvent
@@ -62,8 +63,8 @@ class ViewModelClassic @Inject constructor(
             _listCards.addAll(images2.map { image ->
                 mutableStateOf(
                     CardState(
-                        backSide = "file:///android_asset/backs/${localSettingsData.value.backSide}",
-                        faceSide = "file:///android_asset/images/${localSettingsData.value.imagePack}/$image",
+                        backSide = Constants.PATH_BACKSIDES + localSettingsData.value.backside,
+                        faceSide = Constants.PATH_IMAGE_PACKS + "${localSettingsData.value.imagePack}/$image",
                         open = false,
                     )
                 )
@@ -91,7 +92,7 @@ class ViewModelClassic @Inject constructor(
         }
     }
 
-    private fun setPauseClick(win: Boolean, index: Int){
+    private fun setPauseClick(win: Boolean, index: Int) {
         stateGame.value = stateGame.value.copy(showCards = true)
         stateTopBar.value = stateTopBar.value.nextStep(win)
         viewModelScope.launch {

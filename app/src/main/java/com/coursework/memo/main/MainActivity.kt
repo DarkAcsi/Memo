@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
         actionBar?.hide()
         setContent {
             MemoTheme {
-                NavGraph()
+                NavGraph(viewModel.settingsData.value)
             }
         }
     }

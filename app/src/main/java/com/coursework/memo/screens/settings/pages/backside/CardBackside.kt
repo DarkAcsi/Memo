@@ -1,7 +1,6 @@
 package com.coursework.memo.screens.settings.pages.backside
 
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -25,30 +24,16 @@ import com.coursework.memo.screens.settings.base.SettingsEvent
 @Preview(showBackground = true)
 @Composable
 fun TestCardBackside() {
-    Column {
-        CardBackside(
-            card = Backside("", "", 3),
-            select = {}
-        )
-        CardBackside(
-            card = Backside("", "", 3, true),
-            select = {}
-        )
-        CardBackside(
-            card = Backside("", "", 3),
-            select = {}
-        )
-        CardBackside(
-            card = Backside("", "", 3),
-            select = {}
-        )
-    }
+    CardBackside(
+        card = Backside("", 0, true),
+        select = {}
+    )
 }
 
 @Composable
 fun CardBackside(card: Backside, select: (SettingsEvent) -> Unit) {
     Button(
-        { select(SettingsEvent.SelectImagePack(card.index)) },
+        { select(SettingsEvent.SelectBackside(card.index)) },
         modifier = Modifier
             .padding(horizontal = 8.dp, vertical = 2.dp)
             .border(
@@ -69,8 +54,8 @@ fun CardBackside(card: Backside, select: (SettingsEvent) -> Unit) {
             model = card.image,
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Fit,
-            placeholder = BitmapPainter(ImageBitmap.imageResource(id = R.drawable.test_face_side)),
+            contentScale = ContentScale.Crop,
+            placeholder = BitmapPainter(ImageBitmap.imageResource(id = R.drawable.background)),
         )
     }
 }

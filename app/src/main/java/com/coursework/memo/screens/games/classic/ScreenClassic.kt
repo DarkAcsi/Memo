@@ -10,6 +10,7 @@ import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
+import com.coursework.memo.main.grobal_variables.Constants
 import com.coursework.memo.navigation.Games
 import com.coursework.memo.navigation.Navigator
 import com.coursework.memo.navigation.NavigatorImpl
@@ -66,7 +67,7 @@ fun GameClassic(
                             modifier = Modifier.weight(1f),
                             paddings = gamePaddings,
                             state = cardStates.getOrNull(count)?.value,
-                            backSide = gameSettings.backSide,
+                            backSide = Constants.PATH_BACKSIDES + gameSettings.backSide,
                             index = count,
                             event = event
                         )

@@ -6,19 +6,21 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.coursework.memo.main.grobal_variables.GlobalVariables
 import com.coursework.memo.main.grobal_variables.GlobalVariablesImpl
-import com.coursework.memo.screens.games.componens.ScreenGame
+import com.coursework.memo.preferences.local_settings.LocalSettingsData
+import com.coursework.memo.screens.games.ScreenGame
 import com.coursework.memo.screens.games.support.GameSettings
 import com.coursework.memo.screens.home.ScreenHome
-import com.coursework.memo.screens.settings.base.ScreenSettings
+import com.coursework.memo.screens.settings.ScreenSettings
 import com.coursework.memo.screens.size.ScreenSize
 import com.google.gson.Gson
 
 @Composable
-fun NavGraph() {
+fun NavGraph(settingsData: LocalSettingsData) {
 
     val navController = rememberNavController()
     val navigator: Navigator = NavigatorImpl(navController)
     val globalVariables: GlobalVariables = GlobalVariablesImpl()
+    globalVariables.setVariables(settingsData)
 
     NavHost(navController = navController, startDestination = Routes.Home.route) {
 
@@ -33,7 +35,7 @@ fun NavGraph() {
             val data = argument.arguments?.getString("data")
             val variables = globalVariables.data
             val gameSettings = Gson().fromJson(data, GameSettings::class.java).copy(
-                backSide = variables.backSide,
+                backSide = variables.backside,
                 packImage = variables.imagePack,
             )
             ScreenGame(navigator, gameSettings)
@@ -43,7 +45,7 @@ fun NavGraph() {
             ScreenSettings(navigator, globalVariables)
         }
 
-        composable(Routes.Pause.route){
+        composable(Routes.Pause.route) {
             // todo pause
         }
     }

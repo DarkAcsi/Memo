@@ -1,4 +1,4 @@
-package com.coursework.memo.screens.games.componens
+package com.coursework.memo.screens.games
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

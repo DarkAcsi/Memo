@@ -10,6 +10,7 @@ import com.coursework.memo.R
 import com.coursework.memo.main.grobal_variables.GlobalVariables
 import com.coursework.memo.preferences.local_settings.LocalSettingsData
 import com.coursework.memo.preferences.usecases.SaveSettings
+import com.coursework.memo.screens.settings.pages.backside.Backside
 import com.coursework.memo.screens.settings.pages.images.ImagePack
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -25,35 +26,77 @@ class SettingsViewModel @Inject constructor(
 
     private val _listImagePacks = mutableListOf<MutableState<ImagePack>>()
     val listImagePacks: List<State<ImagePack>> = _listImagePacks
-//
-//    private val _settingData = mutableStateOf(LocalSettingsData())
-//    private val settingsData: State<LocalSettingsData> = _settingData
-//
-//    private val _settingData = mutableStateOf(LocalSettingsData())
-//    private val settingsData: State<LocalSettingsData> = _settingData
 
+    private val _listBacksides = mutableListOf<MutableState<Backside>>()
+    val listBacksides: List<State<Backside>> = _listBacksides
 
     fun initSettingsData(globalVariables: GlobalVariables, context: Context) {
         _settingsData.value = globalVariables.data
-//        val images =
-//            context.assets.list("images")?.toList()
         val titles = context.resources.getStringArray(R.array.titles)
         val paths = context.resources.getStringArray(R.array.paths)
         _listImagePacks.clear()
         _listImagePacks.addAll(paths.mapIndexed { index, path ->
-            mutableStateOf(ImagePack(
-                name = titles[index],
-                titleImage = context.assets.list("images/$path")?.toList()?.get(0) ?: "",
-                index = index,
-                selected = settingsData.value.imagePack == titles[index]
-            ))
+            mutableStateOf(
+                ImagePack(
+                    name = titles[index],
+                    titleImage = "file:///android_asset/images/$path/" + context.assets.list("images/$path")
+                        ?.toList()?.get(0),
+                    index = index,
+                    selected = settingsData.value.imagePack == path
+                )
+            )
+        })
+
+        val backsidesCard = context.assets.list("backs")?.toList() ?: listOf()
+        _listBacksides.clear()
+        _listBacksides.addAll(backsidesCard.mapIndexed { index, backside ->
+            mutableStateOf(
+                Backside(
+                    name = backside,
+                    index = index,
+                    selected = settingsData.value.backside == backside
+                )
+            )
         })
     }
 
-    fun saveSettingsData() {
+    fun saveSettingsData(globalVariables: GlobalVariables) {
+        globalVariables.setVariables(settingsData.value)
         viewModelScope.launch {
             saveSettings(settingsData.value)
         }
+    }
+
+    fun onEvent(event: SettingsEvent) {
+        when (event) {
+            is SettingsEvent.SelectImagePack -> selectImagePack(event)
+            is SettingsEvent.SelectBackside -> selectBackside(event)
+        }
+    }
+
+
+    private var previousImagePack = 0
+    private var previousBackside = 0
+
+    private fun selectImagePack(event: SettingsEvent.SelectImagePack) {
+        if (previousImagePack == event.index) return
+        _listImagePacks[previousImagePack].value =
+            _listImagePacks[previousImagePack].value.copy(selected = false)
+        _listImagePacks[event.index].value =
+            _listImagePacks[event.index].value.copy(selected = true)
+        _settingsData.value =
+            _settingsData.value.copy(imagePack = _listImagePacks[event.index].value.name)
+        previousImagePack = event.index
+    }
+
+    private fun selectBackside(event: SettingsEvent.SelectBackside) {
+        if (previousBackside == event.index) return
+        _listBacksides[previousBackside].value =
+            _listBacksides[previousBackside].value.copy(selected = false)
+        _listBacksides[event.index].value = _listBacksides[event.index].value.copy(selected = true)
+        _settingsData.value =
+            _settingsData.value.copy(backside = _listBacksides[event.index].value.name)
+        previousBackside = event.index
     }
 
 }
