@@ -9,7 +9,7 @@ import com.coursework.memo.main.grobal_variables.GlobalVariablesImpl
 import com.coursework.memo.screens.games.componens.ScreenGame
 import com.coursework.memo.screens.games.support.GameSettings
 import com.coursework.memo.screens.home.ScreenHome
-import com.coursework.memo.screens.settings.ScreenSettings
+import com.coursework.memo.screens.settings.base.ScreenSettings
 import com.coursework.memo.screens.size.ScreenSize
 import com.google.gson.Gson
 

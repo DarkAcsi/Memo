@@ -17,8 +17,7 @@
     <string name="player">player</string>
     <string name="players">players</string>
 
-    <string name="blue">Blue</string>
-    <string name="red">Red</string>
-    <string name="yellow">Yellow</string>
-    <string name="green">Green</string>
+    <string name="tab_images">Images</string>
+    <string name="tab_backside">Backside</string>
+    <string name="tab_theme">Theme</string>
 </resources>

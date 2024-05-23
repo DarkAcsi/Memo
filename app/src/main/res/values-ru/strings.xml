@@ -19,4 +19,7 @@
     <string name="yellow">Желтый</string>
     <string name="green">Зеленый</string>
     <string name="close">Закрыть</string>
+    <string name="tab_images">Картинки</string>
+    <string name="tab_backside">Рубашка</string>
+    <string name="tab_theme">Тема</string>
 </resources>
