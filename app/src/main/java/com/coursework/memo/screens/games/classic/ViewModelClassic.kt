@@ -6,28 +6,20 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.coursework.memo.main.grobal_variables.Constants
-import com.coursework.memo.preferences.local_settings.LocalSettingsData
-import com.coursework.memo.preferences.usecases.ReadSettings
 import com.coursework.memo.screens.games.base.GameEvent
 import com.coursework.memo.screens.games.base.GameViewModel
 import com.coursework.memo.screens.games.base.states.CardState
 import com.coursework.memo.screens.games.base.states.GameState
 import com.coursework.memo.screens.games.base.states.TopBarState
+import com.coursework.memo.screens.games.support.GameSettings
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import java.util.Collections.shuffle
 import javax.inject.Inject
 
 @HiltViewModel
-class ViewModelClassic @Inject constructor(
-    readSettings: ReadSettings
-) : GameViewModel() {
-
-    private val _localSettingsData = mutableStateOf(LocalSettingsData("", ""))
-    override val localSettingsData: State<LocalSettingsData> = _localSettingsData
+class ViewModelClassic @Inject constructor() : GameViewModel() {
 
     override var stateGame = mutableStateOf(GameState())
         private set
@@ -38,38 +30,30 @@ class ViewModelClassic @Inject constructor(
     override var stateTopBar = mutableStateOf(TopBarState(2))
         private set
 
-    init {
-        readSettings().onEach { data ->
-            _localSettingsData.value = data
-            _localSettingsData.value = LocalSettingsData("1.jpg", "Animals")
-            stateGame.value = stateGame.value.copy(loadedData = true)
-        }.launchIn(viewModelScope)
-    }
-
     override fun initStateTopBar(players: Int) {
         stateTopBar.value = stateTopBar.value.copy(players = players)
     }
 
-    override fun initCardStates(rows: Int, columns: Int, context: Context) {
-        if (!stateGame.value.loadedData) return
-        viewModelScope.launch {
-            val images =
-                context.assets.list("images/${localSettingsData.value.imagePack}")?.toList()
-            shuffle(images!!)
-            val size = rows * columns / 2
-            val images2 = images.slice(0 until size) + images.slice(0 until size)
-            shuffle(images2)
-            _listCards.clear()
-            _listCards.addAll(images2.map { image ->
-                mutableStateOf(
-                    CardState(
-                        backSide = Constants.PATH_BACKSIDES + localSettingsData.value.backside,
-                        faceSide = Constants.PATH_IMAGE_PACKS + "${localSettingsData.value.imagePack}/$image",
-                        open = false,
-                    )
+    override fun initCardStates(gameSettings: GameSettings, context: Context) {
+        val images =
+            context.assets.list("images/${gameSettings.imagePack}")?.toList()
+        shuffle(images!!)
+
+        val size = gameSettings.rows * gameSettings.columns / 2
+        stateGame.value.stepsToWin.intValue = size
+
+        val images2 = images.slice(0 until size) + images.slice(0 until size)
+        shuffle(images2)
+        _listCards.clear()
+        _listCards.addAll(images2.map { image ->
+            mutableStateOf(
+                CardState(
+                    backSide = Constants.PATH_BACKSIDES + gameSettings.backside,
+                    faceSide = Constants.PATH_IMAGE_PACKS + "${gameSettings.imagePack}/$image",
+                    open = false,
                 )
-            })
-        }
+            )
+        })
     }
 
     private var firstCard = -1
@@ -86,6 +70,9 @@ class ViewModelClassic @Inject constructor(
         if (firstCard < 0) {
             firstCard = event.index
         } else if (_listCards[firstCard].value.faceSide == _listCards[event.index].value.faceSide) {
+            stateGame.value.stepsToWin.intValue -= 1
+            if (stateGame.value.stepsToWin.intValue == 0)
+                stateGame.value = stateGame.value.copy(finishedGame = true)
             setPauseClick(true, event.index)
         } else {
             setPauseClick(false, event.index)

@@ -37,15 +37,15 @@ fun ViewGameCard() {
 fun GameCard(
     modifier: Modifier,
     paddings: GamePaddings,
-    state: CardState?,
+    state: CardState,
     backSide: String,
     index: Int,
     event: (GameEvent) -> Unit,
 ) {
-    val image = if (state != null && state.open)
+    val image = if (state.open)
         state.faceSide ?: backSide else backSide
     Button(
-        { if (state != null && !state.open) event(GameEvent.EventClickCard(index)) },
+        { if (!state.open && state.faceSide != null) event(GameEvent.EventClickCard(index)) },
         modifier = Modifier
             .then(modifier)
             .padding(horizontal = paddings.modPadding, vertical = paddings.modPadding),

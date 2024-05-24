@@ -22,10 +22,11 @@ fun ScreenGame(
         Games.Find.kind -> viewModel = hiltViewModel<ViewModelClassic>()
         Games.House.kind -> viewModel = hiltViewModel<ViewModelClassic>()
     }
+
     val context = LocalContext.current
-    LaunchedEffect(key1 = viewModel.stateGame.value.loadedData) {
+    LaunchedEffect(key1 = context) {
         viewModel.initStateTopBar(gameSettings.players)
-        viewModel.initCardStates(gameSettings.rows, gameSettings.columns, context)
+        viewModel.initCardStates(gameSettings, context)
     }
 
     when (gameSettings.kindGame) {
@@ -35,6 +36,7 @@ fun ScreenGame(
                 gameSettings = gameSettings,
                 cardStates = viewModel.listCards,
                 stateTopBar = viewModel.stateTopBar.value,
+                finishGame = viewModel.stateGame.value.finishedGame,
                 event = viewModel::onEvent
             )
         }

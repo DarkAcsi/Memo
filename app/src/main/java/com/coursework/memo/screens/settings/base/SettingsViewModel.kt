@@ -30,6 +30,10 @@ class SettingsViewModel @Inject constructor(
     private val _listBacksides = mutableListOf<MutableState<Backside>>()
     val listBacksides: List<State<Backside>> = _listBacksides
 
+
+    private var previousImagePack = 0
+    private var previousBackside = 0
+
     fun initSettingsData(globalVariables: GlobalVariables, context: Context) {
         _settingsData.value = globalVariables.data
         val titles = context.resources.getStringArray(R.array.titles)
@@ -58,6 +62,13 @@ class SettingsViewModel @Inject constructor(
                 )
             )
         })
+
+        listImagePacks.forEachIndexed { index, state ->
+            if (state.value.selected) previousImagePack = index
+        }
+        listBacksides.forEachIndexed { index, state ->
+            if (state.value.selected) previousBackside = index
+        }
     }
 
     fun saveSettingsData(globalVariables: GlobalVariables) {
@@ -73,10 +84,6 @@ class SettingsViewModel @Inject constructor(
             is SettingsEvent.SelectBackside -> selectBackside(event)
         }
     }
-
-
-    private var previousImagePack = 0
-    private var previousBackside = 0
 
     private fun selectImagePack(event: SettingsEvent.SelectImagePack) {
         if (previousImagePack == event.index) return

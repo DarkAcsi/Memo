@@ -9,11 +9,11 @@ fun SizeClassic(navigate: (rows: Int, column: Int) -> Unit, players: Int) {
     Column {
         Row {
             SizeButton(sizeText = "4x3", enabled = players < 3, navigate = navigate)
-            SizeButton(sizeText = "5x4", enabled = players < 3, navigate = navigate)
+            SizeButton(sizeText = "5x4", enabled = players < 4, navigate = navigate)
         }
         Row {
-            SizeButton(sizeText = "6x5", enabled = players < 4, navigate = navigate)
-            SizeButton(sizeText = "7x6", enabled = players < 4, navigate = navigate)
+            SizeButton(sizeText = "6x5", enabled = true, navigate = navigate)
+            SizeButton(sizeText = "7x6", enabled = true, navigate = navigate)
         }
         Row {
             SizeButton(sizeText = "8x7", enabled = true, navigate = navigate)

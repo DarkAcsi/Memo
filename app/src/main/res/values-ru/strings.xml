@@ -7,12 +7,12 @@
     <string name="classic_game">Классическая</string>
     <string name="find_game">Найди!</string>
     <string name="house_game">Домик</string>
-    <string name="pause">Пауза</string>
-    <string name="play">Играть</string>
     <string name="retry">Заново</string>
     <string name="back">Назад</string>
     <string name="settings">Настройки</string>
     <string name="players">игрока</string>
+    <string name="game_win">Выиграл %1$s!</string>
+    <string name="game_tie">Ничья!</string>
     <string name="player">игрок</string>
     <string name="blue">Синий</string>
     <string name="red">Красный</string>

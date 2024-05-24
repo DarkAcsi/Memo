@@ -45,7 +45,7 @@ fun ScreenSize(navigator: Navigator, kindGame: String) {
             TopAppBar(
                 title = {},
                 navigationIcon = {
-                    IconButton({ navigator.toHome() }) {
+                    IconButton({ navigator.back() }) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.back))
                     }
                 },

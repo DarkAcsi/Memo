@@ -28,12 +28,8 @@ class NavigatorImpl(private val navController: NavHostController): Navigator {
         navController.navigate(Routes.Settings.route)
     }
 
-    override fun toPause(gameSettings: GameSettings) {
-        navController.navigate(Routes.Pause.route + "/" + Gson().toJson(gameSettings))
-    }
-
     override fun retryGame(gameSettings: GameSettings) {
-        navController.getBackStackEntry(Routes.Size.route)
+        navController.popBackStack(Routes.Size.route, inclusive = false)
         toGame(gameSettings)
     }
 

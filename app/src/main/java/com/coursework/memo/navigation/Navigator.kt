@@ -15,8 +15,6 @@ interface Navigator {
 
     fun toSettings()
 
-    fun toPause(gameSettings: GameSettings)
-
     fun retryGame(gameSettings: GameSettings)
 
 }

@@ -35,8 +35,8 @@ fun NavGraph(settingsData: LocalSettingsData) {
             val data = argument.arguments?.getString("data")
             val variables = globalVariables.data
             val gameSettings = Gson().fromJson(data, GameSettings::class.java).copy(
-                backSide = variables.backside,
-                packImage = variables.imagePack,
+                backside = variables.backside,
+                imagePack = variables.imagePack,
             )
             ScreenGame(navigator, gameSettings)
         }

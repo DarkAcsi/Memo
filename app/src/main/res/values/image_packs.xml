@@ -4,6 +4,7 @@
         <item>Animals</item>
     </string-array>
     <string-array name="titles">
-        <item><string name="animals">Animals</string></item>
+        <item>@string/animals</item>
     </string-array>
+    <string name="animals">Animals</string>
 </resources>
