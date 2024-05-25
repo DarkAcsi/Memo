@@ -60,22 +60,22 @@ class ViewModelClassic @Inject constructor() : GameViewModel() {
 
     override fun onEvent(event: GameEvent) {
         when (event) {
-            is GameEvent.EventClickCard -> clickCard(event)
+            is GameEvent.EventClickCard -> clickCard(event.index)
         }
     }
 
-    private fun clickCard(event: GameEvent.EventClickCard) {
+    private fun clickCard(index: Int) {
         if (stateGame.value.showCards) return
-        _listCards[event.index].value = _listCards[event.index].value.copy(open = true)
+        _listCards[index].value = _listCards[index].value.copy(open = true)
         if (firstCard < 0) {
-            firstCard = event.index
-        } else if (_listCards[firstCard].value.faceSide == _listCards[event.index].value.faceSide) {
+            firstCard = index
+        } else if (_listCards[firstCard].value.faceSide == _listCards[index].value.faceSide) {
             stateGame.value.stepsToWin.intValue -= 1
             if (stateGame.value.stepsToWin.intValue == 0)
                 stateGame.value = stateGame.value.copy(finishedGame = true)
-            setPauseClick(true, event.index)
+            setPauseClick(true, index)
         } else {
-            setPauseClick(false, event.index)
+            setPauseClick(false, index)
         }
     }
 
@@ -86,8 +86,7 @@ class ViewModelClassic @Inject constructor() : GameViewModel() {
             delay(300)
             if (!win) {
                 _listCards[firstCard].value = _listCards[firstCard].value.copy(open = false)
-                _listCards[index].value =
-                    _listCards[index].value.copy(open = false)
+                _listCards[index].value = _listCards[index].value.copy(open = false)
             }
             firstCard = -1
             stateGame.value = stateGame.value.copy(showCards = false)

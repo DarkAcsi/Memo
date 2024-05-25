@@ -29,7 +29,8 @@ class NavigatorImpl(private val navController: NavHostController): Navigator {
     }
 
     override fun retryGame(gameSettings: GameSettings) {
-        navController.popBackStack(Routes.Size.route, inclusive = false)
+        navController.popBackStack(Routes.Home.route, inclusive = false)
+        toSize(gameSettings.kindGame)
         toGame(gameSettings)
     }
 

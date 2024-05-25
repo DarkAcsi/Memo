@@ -9,6 +9,8 @@ import com.coursework.memo.navigation.Navigator
 import com.coursework.memo.screens.games.base.GameViewModel
 import com.coursework.memo.screens.games.classic.GameClassic
 import com.coursework.memo.screens.games.classic.ViewModelClassic
+import com.coursework.memo.screens.games.house.GameHouse
+import com.coursework.memo.screens.games.house.ViewModelHouse
 import com.coursework.memo.screens.games.support.GameSettings
 
 @Composable
@@ -20,7 +22,7 @@ fun ScreenGame(
     when (gameSettings.kindGame) {
         Games.Classic.kind -> viewModel = hiltViewModel<ViewModelClassic>()
         Games.Find.kind -> viewModel = hiltViewModel<ViewModelClassic>()
-        Games.House.kind -> viewModel = hiltViewModel<ViewModelClassic>()
+        Games.House.kind -> viewModel = hiltViewModel<ViewModelHouse>()
     }
 
     val context = LocalContext.current
@@ -30,18 +32,23 @@ fun ScreenGame(
     }
 
     when (gameSettings.kindGame) {
-        Games.Classic.kind -> {
-            GameClassic(
-                navigator = navigator,
-                gameSettings = gameSettings,
-                cardStates = viewModel.listCards,
-                stateTopBar = viewModel.stateTopBar.value,
-                finishGame = viewModel.stateGame.value.finishedGame,
-                event = viewModel::onEvent
-            )
-        }
+        Games.Classic.kind -> GameClassic(
+            navigator = navigator,
+            gameSettings = gameSettings,
+            cardStates = viewModel.listCards,
+            stateTopBar = viewModel.stateTopBar.value,
+            finishGame = viewModel.stateGame.value.finishedGame,
+            event = viewModel::onEvent
+        )
 
         Games.Find.kind -> {}
-        Games.House.kind -> {}
+        Games.House.kind -> GameHouse(
+            navigator = navigator,
+            gameSettings = gameSettings,
+            cardStates = viewModel.listCards,
+            stateTopBar = viewModel.stateTopBar.value,
+            gameState = viewModel.stateGame.value,
+            event = viewModel::onEvent
+        )
     }
 }

@@ -2,7 +2,7 @@ package com.coursework.memo.screens.games.componens
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -62,15 +62,14 @@ fun GameCard(
             model = image,
             contentDescription = null,
             modifier = Modifier
-                .fillMaxSize(1f)
+                .fillMaxHeight()
                 .border(
                     width = paddings.borderStroke,
                     color = Color.White,
                     shape = RoundedCornerShape(percent = 15)
                 )
                 .clip(RoundedCornerShape(percent = 15)),
-            contentScale = ContentScale.FillBounds,
-//            placeholder = BitmapPainter(ImageBitmap.imageResource(R.drawable.test_face_side))
+            contentScale = ContentScale.Fit,
         )
     }
 }

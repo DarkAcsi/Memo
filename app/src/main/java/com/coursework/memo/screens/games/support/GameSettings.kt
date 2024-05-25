@@ -14,20 +14,20 @@ data class GameSettings(
 ) {
 
     fun getGamePaddings(): GamePaddings {
-        return when (rows) {
-            4 -> GamePaddings(
+        return when (columns) {
+            3 -> GamePaddings(
                 boxPadding = 0.dp,
                 modPadding = 8.dp,
                 borderStroke = 3.dp
             )
 
-            5, 6 -> GamePaddings(
+            4, 5 -> GamePaddings(
                 boxPadding = 2.dp,
                 modPadding = 6.dp,
                 borderStroke = 2.dp
             )
 
-            7, 8 -> GamePaddings(
+            6 -> GamePaddings(
                 boxPadding = 4.dp,
                 modPadding = 4.dp,
                 borderStroke = 2.dp
