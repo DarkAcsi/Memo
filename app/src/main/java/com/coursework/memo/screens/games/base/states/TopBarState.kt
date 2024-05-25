@@ -17,4 +17,25 @@ data class TopBarState(
         )
     }
 
+    fun nextStepFindGame(): TopBarState {
+        return TopBarState(
+            players = players,
+            orderPlayers = (orderPlayers + 1) % players,
+            scores = scores
+        )
+    }
+
+    fun resultFindGame(player:Int, win: Boolean): TopBarState {
+        val newScores = scores.toMutableList()
+        if (win)
+            newScores[player] += 1
+        else if (newScores[player] > 0)
+            newScores[player] -= 1
+        return TopBarState(
+            players = players,
+            orderPlayers = (orderPlayers + 1) % players,
+            scores = newScores.toList()
+        )
+    }
+
 }

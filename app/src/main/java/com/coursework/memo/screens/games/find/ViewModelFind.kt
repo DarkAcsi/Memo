@@ -35,74 +35,61 @@ class ViewModelFind @Inject constructor() : GameViewModel() {
     }
 
     override fun initCardStates(gameSettings: GameSettings, context: Context) {
-        viewModelScope.launch {
-            val images =
-                context.assets.list("images/${gameSettings.imagePack}")?.toList()
-            shuffle(images!!)
-            val size = gameSettings.rows * gameSettings.columns
+        val images =
+            context.assets.list("images/${gameSettings.imagePack}")?.toList()
+        shuffle(images!!)
 
-            val images1: List<String>
-            val images2: List<String>
-            if (size <= images.size) {
-                stateGame.value.stepsToWin.intValue = size
-                images2 = images.slice(0 until stateGame.value.stepsToWin.intValue)
-                images1 = images2.toMutableList()
-            } else {
-                stateGame.value.stepsToWin.intValue = images.size - (size - images.size)
-                images2 = images.slice(0 until stateGame.value.stepsToWin.intValue)
-                images1 =
-                    images.slice(stateGame.value.stepsToWin.intValue until images.size) + images.toMutableList()
-            }
-            shuffle(images1)
+        val size = gameSettings.rows * gameSettings.columns / 2
+        stateGame.value.stepsToWin.intValue = size
 
-            _listCards.clear()
-            _listCards.addAll(images1.map { image ->
-                mutableStateOf(
-                    CardState(
-                        backSide = Constants.PATH_BACKSIDES + gameSettings.backside,
-                        faceSide = Constants.PATH_IMAGE_PACKS + "${gameSettings.imagePack}/$image",
-                        open = false,
-                    )
+        val images2 = images.slice(0 until size) + images.slice(0 until size)
+        shuffle(images2)
+        _listCards.clear()
+        _listCards.addAll(images2.map { image ->
+            mutableStateOf(
+                CardState(
+                    backSide = Constants.PATH_BACKSIDES + gameSettings.backside,
+                    faceSide = Constants.PATH_IMAGE_PACKS + "${gameSettings.imagePack}/$image",
+                    open = false,
                 )
-            } + images2.map { image ->
-                mutableStateOf(
-                    CardState(
-                        backSide = Constants.PATH_BACKSIDES + gameSettings.backside,
-                        faceSide = Constants.PATH_IMAGE_PACKS + "${gameSettings.imagePack}/$image",
-                        open = true,
-                    )
-                )
-            })
-        }
+            )
+        })
     }
 
     override fun onEvent(event: GameEvent) {
         when (event) {
             is GameEvent.EventClickCard -> clickCard(event.index)
-            is GameEvent.EventDragAndDropCard -> {}
+            is GameEvent.EventDropCard -> dropCard(event.indexCard, event.order)
         }
     }
 
+    private var firstCard = -1
     private fun clickCard(index: Int) {
-        if (stateGame.value.showCards) return
+        if (firstCard >= 0)
+            _listCards[firstCard].value = _listCards[firstCard].value.copy(open = false)
         _listCards[index].value = _listCards[index].value.copy(open = true)
-        if (_listCards[index].value.faceSide == _listCards[listCards.size - stateGame.value.stepsToWin.intValue].value.faceSide) {
+        firstCard = index
+        stateTopBar.value = stateTopBar.value.nextStepFindGame()
+    }
+
+    private fun dropCard(index: Int?, order: Int){
+        if (index == null || firstCard < 0){
+            return
+        } else if (_listCards[firstCard].value.faceSide == _listCards[index].value.faceSide) {
+            _listCards[index].value = _listCards[index].value.copy(open = true)
+            stateTopBar.value = stateTopBar.value.resultFindGame(order, true)
             stateGame.value.stepsToWin.intValue -= 1
+            firstCard = -1
             if (stateGame.value.stepsToWin.intValue == 0)
                 stateGame.value = stateGame.value.copy(finishedGame = true)
-            setPauseClick(true, index)
         } else {
-            setPauseClick(false, index)
-        }
-    }
+            stateTopBar.value = stateTopBar.value.resultFindGame(order, false)
+            viewModelScope.launch {
+                _listCards[index].value = _listCards[index].value.copy(open = true)
+                delay(300)
+                _listCards[index].value = _listCards[index].value.copy(open = false)
+            }
 
-    private fun setPauseClick(win: Boolean, index: Int) {
-        stateGame.value = stateGame.value.copy(showCards = true)
-        stateTopBar.value = stateTopBar.value.nextStep(win)
-        viewModelScope.launch {
-            delay(300)
-            if (!win) _listCards[index].value = _listCards[index].value.copy(open = false)
-            stateGame.value = stateGame.value.copy(showCards = false)
         }
     }
 }

@@ -35,8 +35,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogProperties
 import com.coursework.memo.R
 import com.coursework.memo.screens.games.base.states.TopBarState
-import com.coursework.memo.ui.theme.colorsBorderWait
-import com.coursework.memo.ui.theme.colorsPlayersWait
+import com.coursework.memo.ui.theme.colorsPlayers
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
@@ -106,8 +105,8 @@ private fun FinishPlayer(order: Int, score: Int, result: Int) {
                 .padding(top = 60.dp)
                 .size(width = 120.dp, height = 70.dp)
                 .padding(4.dp)
-                .border(4.dp, colorsBorderWait[order], RoundedCornerShape(percent = 30))
-                .background(colorsPlayersWait[order], RoundedCornerShape(percent = 30))
+                .border(4.dp, Color(colorsPlayers[order] + 0x88000000), RoundedCornerShape(percent = 30))
+                .background(Color(colorsPlayers[order] + 0x20000000), RoundedCornerShape(percent = 30))
                 .padding(4.dp),
             contentAlignment = Alignment.BottomCenter
         ) {

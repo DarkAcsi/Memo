@@ -1,6 +1,5 @@
 package com.coursework.memo.screens.games.find
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.coursework.memo.main.grobal_variables.Constants
@@ -22,8 +20,8 @@ import com.coursework.memo.screens.games.base.states.CardState
 import com.coursework.memo.screens.games.base.states.GameState
 import com.coursework.memo.screens.games.base.states.TopBarState
 import com.coursework.memo.screens.games.componens.FinishAlertDialog
-import com.coursework.memo.screens.games.componens.GameCard
 import com.coursework.memo.screens.games.componens.GameTopBar
+import com.coursework.memo.screens.games.find.drag_and_drop.FindGameCard
 import com.coursework.memo.screens.games.find.drag_and_drop.PlayerContainer
 import com.coursework.memo.screens.games.find.drag_and_drop.cardSourceModifier
 import com.coursework.memo.screens.games.support.GameSettings
@@ -62,7 +60,6 @@ fun GameFind(
             modifier = Modifier
                 .then(modifierPad)
                 .fillMaxSize()
-                .background(Color.DarkGray)
                 .padding(gamePaddings.boxPadding),
         ) {
             var count = 0
@@ -72,15 +69,12 @@ fun GameFind(
                         .weight(1f)
                 ) {
                     for (column in 0 until gameSettings.columns) {
-                        GameCard(
-                            modifier = Modifier
-                                .cardSourceModifier(count)
-                                .weight(1f),
+                        FindGameCard(
+                            modifier = Modifier.weight(1f),
                             paddings = gamePaddings,
                             state = (cardStates.getOrElse(count) { mutableStateOf(CardState()) }).value,
                             backSide = Constants.PATH_BACKSIDES + gameSettings.backside,
-                            index = count,
-                            event = event
+                            findModifier = Modifier.cardSourceModifier(count, event)
                         )
                         count += 1
                     }

@@ -17,6 +17,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -27,10 +28,7 @@ import com.coursework.memo.R
 import com.coursework.memo.navigation.Navigator
 import com.coursework.memo.navigation.NavigatorImpl
 import com.coursework.memo.screens.games.base.states.TopBarState
-import com.coursework.memo.ui.theme.colorsBorder
-import com.coursework.memo.ui.theme.colorsBorderWait
 import com.coursework.memo.ui.theme.colorsPlayers
-import com.coursework.memo.ui.theme.colorsPlayersWait
 
 @Preview(backgroundColor = 0xFFFFFFFF, showBackground = true)
 @Composable
@@ -38,7 +36,7 @@ fun ViewGameTopBar() {
     val navigator = NavigatorImpl(rememberNavController())
     GameTopBar(
         navigator = navigator,
-        state = TopBarState(4, 1),
+        state = TopBarState(4, 0),
     )
 }
 
@@ -77,11 +75,11 @@ private fun Player(order: Int, score: Int, wait: Boolean, modifier: Modifier) {
             .fillMaxWidth(0.95f)
             .border(
                 4.dp,
-                if (wait) colorsBorderWait[order] else colorsBorder[order],
-                RoundedCornerShape(percent = 30)
+                if (wait) Color(colorsPlayers[order] + 0x88000000) else Color(colorsPlayers[order] + 0xFF000000),
+                RoundedCornerShape(percent = 30),
             )
             .background(
-                if (wait) colorsPlayersWait[order] else colorsPlayers[order],
+                if (wait) Color(colorsPlayers[order] + 0x20000000) else Color(colorsPlayers[order] + 0xBB000000),
                 RoundedCornerShape(percent = 30)
             )
             .padding(4.dp),
