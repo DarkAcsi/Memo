@@ -10,6 +10,9 @@ val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
+
+val backgroundIndicator = Color(0x44FFFFFF)
+
 val PlayerBlue = Color(0xBB0C2CfC)
 val PlayerRed = Color(0xBBFC0C0C)
 val PlayerYellow = Color(0xBBFCFC0C)
@@ -26,7 +29,6 @@ val WaitBorderBlue = Color(0x880C2CfC)
 val WaitBorderRed = Color(0x88FC0C0C)
 val WaitBorderYellow = Color(0x88FCFC0C)
 val WaitBorderGreen = Color(0x885CFC0C)
-
 
 val colorsPlayers = listOf(PlayerBlue, PlayerRed, PlayerYellow, PlayerGreen)
 val colorsPlayersWait = listOf(WaitPlayerBlue, WaitPlayerRed, WaitPlayerYellow, WaitPlayerGreen)

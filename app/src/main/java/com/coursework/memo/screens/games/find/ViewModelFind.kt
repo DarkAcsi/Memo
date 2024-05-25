@@ -1,4 +1,4 @@
-package com.coursework.memo.screens.games.house
+package com.coursework.memo.screens.games.find
 
 import android.content.Context
 import androidx.compose.runtime.MutableState
@@ -19,7 +19,7 @@ import java.util.Collections.shuffle
 import javax.inject.Inject
 
 @HiltViewModel
-class ViewModelHouse @Inject constructor() : GameViewModel() {
+class ViewModelFind @Inject constructor() : GameViewModel() {
 
     override var stateGame = mutableStateOf(GameState())
         private set
@@ -79,7 +79,7 @@ class ViewModelHouse @Inject constructor() : GameViewModel() {
     override fun onEvent(event: GameEvent) {
         when (event) {
             is GameEvent.EventClickCard -> clickCard(event.index)
-            else -> {}
+            is GameEvent.EventDragAndDropCard -> {}
         }
     }
 

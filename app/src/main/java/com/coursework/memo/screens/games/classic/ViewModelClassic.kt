@@ -61,6 +61,7 @@ class ViewModelClassic @Inject constructor() : GameViewModel() {
     override fun onEvent(event: GameEvent) {
         when (event) {
             is GameEvent.EventClickCard -> clickCard(event.index)
+            else -> {}
         }
     }
 

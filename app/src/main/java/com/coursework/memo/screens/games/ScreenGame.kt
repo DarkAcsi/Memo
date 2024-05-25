@@ -9,6 +9,8 @@ import com.coursework.memo.navigation.Navigator
 import com.coursework.memo.screens.games.base.GameViewModel
 import com.coursework.memo.screens.games.classic.GameClassic
 import com.coursework.memo.screens.games.classic.ViewModelClassic
+import com.coursework.memo.screens.games.find.GameFind
+import com.coursework.memo.screens.games.find.ViewModelFind
 import com.coursework.memo.screens.games.house.GameHouse
 import com.coursework.memo.screens.games.house.ViewModelHouse
 import com.coursework.memo.screens.games.support.GameSettings
@@ -21,7 +23,7 @@ fun ScreenGame(
     lateinit var viewModel: GameViewModel
     when (gameSettings.kindGame) {
         Games.Classic.kind -> viewModel = hiltViewModel<ViewModelClassic>()
-        Games.Find.kind -> viewModel = hiltViewModel<ViewModelClassic>()
+        Games.Find.kind -> viewModel = hiltViewModel<ViewModelFind>()
         Games.House.kind -> viewModel = hiltViewModel<ViewModelHouse>()
     }
 
@@ -41,7 +43,15 @@ fun ScreenGame(
             event = viewModel::onEvent
         )
 
-        Games.Find.kind -> {}
+        Games.Find.kind -> GameFind(
+            navigator = navigator,
+            gameSettings = gameSettings,
+            cardStates = viewModel.listCards,
+            stateTopBar = viewModel.stateTopBar.value,
+            gameState = viewModel.stateGame.value,
+            event = viewModel::onEvent
+        )
+
         Games.House.kind -> GameHouse(
             navigator = navigator,
             gameSettings = gameSettings,

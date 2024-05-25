@@ -29,6 +29,7 @@ import com.coursework.memo.navigation.Navigator
 import com.coursework.memo.navigation.NavigatorImpl
 import com.coursework.memo.screens.games.support.GameSettings
 import com.coursework.memo.screens.size.components.SizeClassic
+import com.coursework.memo.screens.size.components.SizeFind
 import com.coursework.memo.screens.size.components.SizeHouse
 
 @Preview(showSystemUi = true)
@@ -85,6 +86,7 @@ fun ScreenSize(navigator: Navigator, kindGame: String) {
                 }
                 when (kindGame) {
                     Games.Classic.kind -> SizeClassic(::navigate, players.intValue + 2)
+                    Games.Find.kind -> SizeFind(::navigate, players.intValue + 2)
                     Games.House.kind -> SizeHouse(::navigate, players.intValue + 2)
                 }
             }
