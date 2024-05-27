@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rules_classic">The participant opens two closed card. If the pictures match, he gets a point and walks again. Otherwise, the turn goes to the next player.</string>
+    <string name="rules_house">The participant opens the card. If the picture matches the main one, then the player gets a point and goes again. Otherwise, the turn goes to the next player.</string>
+    <string name="rules_find">The participants open one card at a time. As soon as the player has found a pair, then loudly say out loud the key words: \"Found!\" or \"Found!\". After that, he pulls the intended pair to his color. If the player has guessed correctly, then a point is credited to him. Otherwise, the score is deducted (the minimum score is 0).</string>
+</resources>

@@ -10,6 +10,7 @@ import com.coursework.memo.preferences.local_settings.LocalSettingsData
 import com.coursework.memo.screens.games.ScreenGame
 import com.coursework.memo.screens.games.support.GameSettings
 import com.coursework.memo.screens.home.ScreenHome
+import com.coursework.memo.screens.rules.ScreenRules
 import com.coursework.memo.screens.settings.ScreenSettings
 import com.coursework.memo.screens.size.ScreenSize
 import com.google.gson.Gson
@@ -45,8 +46,8 @@ fun NavGraph(settingsData: LocalSettingsData) {
             ScreenSettings(navigator, globalVariables)
         }
 
-        composable(Routes.Pause.route) {
-            // todo pause
+        composable(Routes.Rules.route) {
+            ScreenRules(navigator)
         }
     }
 

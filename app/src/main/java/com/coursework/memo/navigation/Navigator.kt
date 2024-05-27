@@ -15,6 +15,8 @@ interface Navigator {
 
     fun toSettings()
 
+    fun toRules()
+
     fun retryGame(gameSettings: GameSettings)
 
 }

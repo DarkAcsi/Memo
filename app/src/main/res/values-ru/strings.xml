@@ -4,13 +4,14 @@
     <string name="animals">Животные</string>
     <string name="home">Домой</string>
     <string name="size">Размер</string>
+    <string name="rules">Правила</string>
     <string name="classic_game">Классическая</string>
     <string name="find_game">Найди!</string>
     <string name="house_game">Домик</string>
     <string name="retry">Заново</string>
     <string name="back">Назад</string>
     <string name="settings">Настройки</string>
-    <string name="players">игрока</string>
+    <string name="players">Игроки</string>
     <string name="game_win">Выиграл %1$s!</string>
     <string name="game_tie">Ничья!</string>
     <string name="player">игрок</string>
@@ -22,4 +23,7 @@
     <string name="tab_images">Картинки</string>
     <string name="tab_backside">Рубашка</string>
     <string name="tab_theme">Тема</string>
+    <string name="rules_classic">Участник открывает две закрытые карточки. Если картинки совпали, ему засчитывается балл и он ходит снова. В ином случае ход переходит к следующему игроку.</string>
+    <string name="rules_house">Участник открывает карту. Если картинка совпала с главной, то игрок получает балл и ходит еще раз. В ином случае ход переходит к следующему игроку.</string>
+    <string name="rules_find">Участники поочередно открывают по одной карте. Как только игрок обнаружил пару, то громко вслух произнести ключевые слова: «Нашел!» или «Нашла!». После этого он тянет предполагаемую пару к своему цвету. Если игрок угадал, то ему зачисляется балл. В ином случае балл отнимается (минимальное значение баллов 0).</string>
 </resources>

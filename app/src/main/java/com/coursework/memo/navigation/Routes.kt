@@ -7,5 +7,5 @@ sealed class Routes(
     data object Size: Routes(route = "sizeScreen")
     data object Game: Routes(route = "gameScreen")
     data object Settings: Routes(route = "settingsScreen")
-    data object Pause: Routes(route = "pauseScreen")
+    data object Rules: Routes(route = "rulesScreen")
 }

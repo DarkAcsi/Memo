@@ -28,6 +28,10 @@ class NavigatorImpl(private val navController: NavHostController): Navigator {
         navController.navigate(Routes.Settings.route)
     }
 
+    override fun toRules() {
+        navController.navigate(Routes.Rules.route)
+    }
+
     override fun retryGame(gameSettings: GameSettings) {
         navController.popBackStack(Routes.Home.route, inclusive = false)
         toSize(gameSettings.kindGame)

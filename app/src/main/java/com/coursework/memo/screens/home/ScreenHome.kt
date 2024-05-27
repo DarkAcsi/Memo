@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -38,11 +39,16 @@ fun ScreenHome(navigator: Navigator) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            TopAppBar(title = {}, actions = {
-                IconButton({ navigator.toSettings() }) {
-                    Icon(Icons.Filled.Settings, stringResource(R.string.settings))
+            TopAppBar(title = {},
+                actions = {
+                    IconButton({ navigator.toRules() }) {
+                        Icon(Icons.Outlined.Info, stringResource(R.string.rules))
+                    }
+                    IconButton({ navigator.toSettings() }) {
+                        Icon(Icons.Filled.Settings, stringResource(R.string.settings))
+                    }
                 }
-            })
+            )
         }
     ) { innerPadding ->
         Box(

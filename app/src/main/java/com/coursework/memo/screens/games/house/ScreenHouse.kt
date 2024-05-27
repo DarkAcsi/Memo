@@ -61,7 +61,7 @@ fun GameHouse(
     event: (GameEvent) -> Unit,
 ) {
     Scaffold(
-        topBar = { GameTopBar(navigator, stateTopBar) },
+        topBar = { GameTopBar(navigator, stateTopBar, gameSettings) },
     ) { innerPadding ->
         val modifierPad = Modifier.padding(innerPadding)
         val gamePaddings = gameSettings.getGamePaddings()

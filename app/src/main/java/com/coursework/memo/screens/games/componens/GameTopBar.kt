@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -28,6 +29,7 @@ import com.coursework.memo.R
 import com.coursework.memo.navigation.Navigator
 import com.coursework.memo.navigation.NavigatorImpl
 import com.coursework.memo.screens.games.base.states.TopBarState
+import com.coursework.memo.screens.games.support.GameSettings
 import com.coursework.memo.ui.theme.colorsPlayers
 
 @Preview(backgroundColor = 0xFFFFFFFF, showBackground = true)
@@ -37,6 +39,7 @@ fun ViewGameTopBar() {
     GameTopBar(
         navigator = navigator,
         state = TopBarState(4, 0),
+        gameSettings = GameSettings("", 4, 4,3)
     )
 }
 
@@ -45,6 +48,7 @@ fun ViewGameTopBar() {
 fun GameTopBar(
     navigator: Navigator,
     state: TopBarState,
+    gameSettings: GameSettings,
 ) {
     TopAppBar(
         title = {
@@ -64,6 +68,11 @@ fun GameTopBar(
                 Icon(Icons.Default.Home, stringResource(R.string.home))
             }
         },
+        actions = {
+            IconButton({ navigator.retryGame(gameSettings) }) {
+                Icon(Icons.Default.Refresh, stringResource(id = R.string.retry))
+            }
+        }
     )
 }
 

@@ -3,9 +3,10 @@
     <string name="settings">Settings</string>
     <string name="home">Home</string>
     <string name="size">Size</string>
+    <string name="rules">Rules</string>
 
     <string name="classic_game">Classic</string>
-    <string name="find_game">Find!</string>
+    <string name="find_game">Find it!</string>
     <string name="house_game">House</string>
 
     <string name="back">Back</string>
@@ -16,7 +17,7 @@
     <string name="game_tie">Tie!</string>
 
     <string name="player">player</string>
-    <string name="players">players</string>
+    <string name="players">Players</string>
     <string name="blue">Blue</string>
     <string name="red">Red</string>
     <string name="yellow">Yellow</string>
@@ -24,5 +25,5 @@
 
     <string name="tab_images">Images</string>
     <string name="tab_backside">Backside</string>
-    <string name="tab_theme">Theme</string>
+    <string name="tab_theme">The participant opens the card. If the picture matches the main one, then the player gets a point and goes again. Otherwise, the turn goes to the next player.</string>
 </resources>

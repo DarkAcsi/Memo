@@ -23,7 +23,7 @@ fun TestPageImages() {
 @Composable
 fun PageImages(
     images: List<State<ImagePack>>,
-    select: (SettingsEvent) -> Unit,
+    select: ( SettingsEvent) -> Unit,
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
