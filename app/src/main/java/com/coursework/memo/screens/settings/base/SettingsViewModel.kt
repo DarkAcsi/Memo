@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.coursework.memo.R
+import com.coursework.memo.main.grobal_variables.Constants
 import com.coursework.memo.main.grobal_variables.GlobalVariables
 import com.coursework.memo.preferences.local_settings.LocalSettingsData
 import com.coursework.memo.preferences.usecases.SaveSettings
@@ -44,7 +45,7 @@ class SettingsViewModel @Inject constructor(
                 ImagePack(
                     name = titles[index],
                     path = path,
-                    titleImage = "file:///android_asset/images/$path/" + context.assets.list("images/$path")
+                    titleImage = "${Constants.PATH_IMAGE_PACKS}$path/" + context.assets.list("images/$path")
                         ?.toList()?.get(0),
                     index = index,
                     selected = settingsData.value.imagePack == path

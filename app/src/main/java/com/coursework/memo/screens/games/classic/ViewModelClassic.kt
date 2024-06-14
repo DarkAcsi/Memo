@@ -27,7 +27,7 @@ class ViewModelClassic @Inject constructor() : GameViewModel() {
     private val _listCards = mutableListOf<MutableState<CardState>>()
     override val listCards: List<State<CardState>> = _listCards
 
-    override var stateTopBar = mutableStateOf(TopBarState(2))
+    override var stateTopBar = mutableStateOf(TopBarState(0))
         private set
 
     override fun initStateTopBar(players: Int) {
