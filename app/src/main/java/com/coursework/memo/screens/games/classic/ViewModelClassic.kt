@@ -31,7 +31,7 @@ class ViewModelClassic @Inject constructor() : GameViewModel() {
         private set
 
     override fun initStateTopBar(players: Int) {
-        stateTopBar.value = stateTopBar.value.copy(players = players)
+        stateTopBar.value = TopBarState(players)
     }
 
     override fun initCardStates(gameSettings: GameSettings, context: Context) {

@@ -35,25 +35,27 @@ class ViewModelFind @Inject constructor() : GameViewModel() {
     }
 
     override fun initCardStates(gameSettings: GameSettings, context: Context) {
-        val images =
-            context.assets.list("images/${gameSettings.imagePack}")?.toList()
-        shuffle(images!!)
+        viewModelScope.launch {
+            val images =
+                context.assets.list("images/${gameSettings.imagePack}")?.toList()
+            shuffle(images!!)
 
-        val size = gameSettings.rows * gameSettings.columns / 2
-        stateGame.value.stepsToWin.intValue = size
+            val size = gameSettings.rows * gameSettings.columns / 2
+            stateGame.value.stepsToWin.intValue = size
 
-        val images2 = images.slice(0 until size) + images.slice(0 until size)
-        shuffle(images2)
-        _listCards.clear()
-        _listCards.addAll(images2.map { image ->
-            mutableStateOf(
-                CardState(
-                    backSide = Constants.PATH_BACKSIDES + gameSettings.backside,
-                    faceSide = Constants.PATH_IMAGE_PACKS + "${gameSettings.imagePack}/$image",
-                    open = false,
+            val images2 = images.slice(0 until size) + images.slice(0 until size)
+            shuffle(images2)
+            _listCards.clear()
+            _listCards.addAll(images2.map { image ->
+                mutableStateOf(
+                    CardState(
+                        backSide = Constants.PATH_BACKSIDES + gameSettings.backside,
+                        faceSide = Constants.PATH_IMAGE_PACKS + "${gameSettings.imagePack}/$image",
+                        open = false,
+                    )
                 )
-            )
-        })
+            })
+        }
     }
 
     override fun onEvent(event: GameEvent) {

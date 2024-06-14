@@ -33,11 +33,11 @@ import com.coursework.memo.screens.settings.base.SettingsEvent
 fun TestCardImagePack() {
     Column {
         CardImagePack(
-            card = ImagePack("name", "", 0),
+            card = ImagePack("name", "", "", 0),
             select = {},
         )
         CardImagePack(
-            card = ImagePack("name", "", 0, true),
+            card = ImagePack("name", "", "", 0, true),
             select = {},
         )
     }

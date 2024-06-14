@@ -2,9 +2,21 @@
 <resources>
     <string-array name="paths">
         <item>Animals</item>
+        <item>Emojies</item>
+        <item>Game</item>
+        <item>Halloween</item>
+        <item>Penguin</item>
     </string-array>
     <string-array name="titles">
-        <item>@string/animals</item>
+        <item>@string/animals_pack</item>
+        <item>@string/emojies_pack</item>
+        <item>@string/game_pack</item>
+        <item>@string/halloween_pack</item>
+        <item>@string/penguin_pack</item>
     </string-array>
-    <string name="animals">Animals</string>
+    <string name="animals_pack">Animals</string>
+    <string name="emojies_pack">Emojies</string>
+    <string name="game_pack">Game</string>
+    <string name="halloween_pack">Helloween</string>
+    <string name="penguin_pack">Penguin</string>
 </resources>

@@ -43,6 +43,7 @@ class SettingsViewModel @Inject constructor(
             mutableStateOf(
                 ImagePack(
                     name = titles[index],
+                    path = path,
                     titleImage = "file:///android_asset/images/$path/" + context.assets.list("images/$path")
                         ?.toList()?.get(0),
                     index = index,
@@ -92,7 +93,7 @@ class SettingsViewModel @Inject constructor(
         _listImagePacks[event.index].value =
             _listImagePacks[event.index].value.copy(selected = true)
         _settingsData.value =
-            _settingsData.value.copy(imagePack = _listImagePacks[event.index].value.name)
+            _settingsData.value.copy(imagePack = _listImagePacks[event.index].value.path)
         previousImagePack = event.index
     }
 

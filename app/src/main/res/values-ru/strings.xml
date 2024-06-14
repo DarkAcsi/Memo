@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Memo</string>
-    <string name="animals">Животные</string>
+    <string name="animals_pack">Животные</string>
     <string name="home">Домой</string>
     <string name="size">Размер</string>
     <string name="rules">Правила</string>
@@ -26,4 +26,8 @@
     <string name="rules_classic">Участник открывает две закрытые карточки. Если картинки совпали, ему засчитывается балл и он ходит снова. В ином случае ход переходит к следующему игроку.</string>
     <string name="rules_house">Участник открывает карту. Если картинка совпала с главной, то игрок получает балл и ходит еще раз. В ином случае ход переходит к следующему игроку.</string>
     <string name="rules_find">Участники поочередно открывают по одной карте. Как только игрок обнаружил пару, то громко вслух произнести ключевые слова: «Нашел!» или «Нашла!». После этого он тянет предполагаемую пару к своему цвету. Если игрок угадал, то ему зачисляется балл. В ином случае балл отнимается (минимальное значение баллов 0).</string>
+    <string name="emojies_pack">Эмоджи</string>
+    <string name="game_pack">Игра</string>
+    <string name="penguin_pack">Пингвин</string>
+    <string name="halloween_pack">Хеллоин</string>
 </resources>
